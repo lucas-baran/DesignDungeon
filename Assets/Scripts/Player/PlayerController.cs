@@ -9,26 +9,6 @@ public sealed class PlayerController : MonoBehaviour
     private PlayerInput _playerInput = null;
     private Rigidbody2D _rigidbody2D = null;
 
-    private int _lockCount = 0;
-
-    // -- PROPERTIES
-
-    public bool LockPosition => _lockCount > 0;
-
-    // -- METHODS
-
-    public void Lock()
-    {
-        _rigidbody2D.velocity = Vector2.zero;
-
-        _lockCount++;
-    }
-    
-    public void Unlock()
-    {
-        _lockCount--;
-    }
-
     // -- UNITY
 
     private void Awake()
@@ -43,11 +23,6 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if( LockPosition )
-        {
-            return;
-        }
-
         _rigidbody2D.velocity = _moveSpeed * _playerInput.AxisInput;
     }
 }

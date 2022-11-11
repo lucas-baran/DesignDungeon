@@ -21,7 +21,7 @@ public sealed class DialogueSystem : MonoBehaviour
 
     private DialogueBox _displayedBox = null;
     private bool _currentEntryFinished = false;
-    private WaitUntil _waitUntilCanGotToNextEntry = null;
+    private WaitUntil _waitUntilCanGoToNextEntry = null;
     private Coroutine _writeDialogueCoroutine = null;
 
     // -- PROPERTIES
@@ -47,13 +47,18 @@ public sealed class DialogueSystem : MonoBehaviour
 
     private IEnumerator WriteDialogueRoutine( DialogueData dialogue_data )
     {
+        if( dialogue_data.PauseGameDuringDialogue )
+        {
+            GameManager.Instance.IsPaused = true;
+        }
+
         foreach( var dialogue_entry in dialogue_data.DialogueEntryDataList )
         {
             _currentEntryFinished = false;
 
             StartDialogueEntry( dialogue_entry );
 
-            yield return _waitUntilCanGotToNextEntry;
+            yield return _waitUntilCanGoToNextEntry;
 
             if( _displayedBox != null )
             {
@@ -61,10 +66,15 @@ public sealed class DialogueSystem : MonoBehaviour
             }
         }
 
-        OnDialogueEnded?.Invoke();
+        if( dialogue_data.PauseGameDuringDialogue )
+        {
+            GameManager.Instance.IsPaused = false;
+        }
 
         _currentEntryFinished = false;
         _writeDialogueCoroutine = null;
+
+        OnDialogueEnded?.Invoke();
     }
 
     private void StartDialogueEntry( DialogueEntryData dialogue_data )
@@ -103,6 +113,6 @@ public sealed class DialogueSystem : MonoBehaviour
             dialogue_box_data.DialogueBox.OnDialogeEntryFinished += DialogueBox_OnDialogeEntryFinished;
         }
 
-        _waitUntilCanGotToNextEntry = new WaitUntil( () => _currentEntryFinished && GameManager.Instance.Player.PlayerInput.NextDialogueDown );
+        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && GameManager.Instance.Player.PlayerInput.NextDialogueDown );
     }
 }

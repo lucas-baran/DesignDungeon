@@ -35,11 +35,9 @@ public sealed class DialogueBox : MonoBehaviour
 
     private IEnumerator WriteDialogueEntryRoutine( DialogueEntryData dialogue_data )
     {
-        WaitForSeconds wait_for_character = new WaitForSeconds( 1f / dialogue_data.Speed );
-
         foreach( var character in dialogue_data.Text )
         {
-            yield return wait_for_character;
+            yield return new WaitForSecondsRealtime( 1f / dialogue_data.Speed );
 
             _textComponent.text += character;
         }
