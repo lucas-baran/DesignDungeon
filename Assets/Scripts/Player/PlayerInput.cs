@@ -7,6 +7,7 @@ public sealed class PlayerInput : MonoBehaviour
     private const string HorizontalAxisName = "Horizontal";
     private const string VerticalAxisName = "Vertical";
     private const string NextDialogueName = "NextDialogue";
+    private const string ToggleSkillTreeName = "ToggleSkillTree";
 
     // -- PROPERTIES
 
@@ -18,6 +19,7 @@ public sealed class PlayerInput : MonoBehaviour
     public delegate void ButtonDownHandler();
 
     public event ButtonDownHandler OnNextDialogueButtonDown;
+    public event ButtonDownHandler OnToggleSkillTreeButtonDown;
 
     // -- UNITY
 
@@ -33,6 +35,11 @@ public sealed class PlayerInput : MonoBehaviour
         if( NextDialogueDown )
         {
             OnNextDialogueButtonDown?.Invoke();
+        }
+
+        if( Input.GetButtonDown( ToggleSkillTreeName ) )
+        {
+            OnToggleSkillTreeButtonDown?.Invoke();
         }
     }
 }

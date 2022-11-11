@@ -108,7 +108,6 @@ public sealed class DialogueSystem : MonoBehaviour
         foreach( var dialogue_box_data in _dialogueBoxes )
         {
             _dialogueBoxMap.Add( dialogue_box_data.Position, dialogue_box_data.DialogueBox );
-            dialogue_box_data.DialogueBox.Display = false;
 
             dialogue_box_data.DialogueBox.OnDialogeEntryFinished += DialogueBox_OnDialogeEntryFinished;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public sealed class DialogueBox : MonoBehaviour
+public sealed class DialogueBox : HideOnPlay
 {
     // -- FIELDS
 
@@ -65,8 +65,10 @@ public sealed class DialogueBox : MonoBehaviour
 
     // -- UNITY
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         Player.Instance.PlayerInput.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
     }
 
