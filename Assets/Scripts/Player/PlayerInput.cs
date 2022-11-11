@@ -11,7 +11,7 @@ public sealed class PlayerInput : MonoBehaviour
     // -- PROPERTIES
 
     public Vector2 AxisInput { get; private set; }
-    public bool NextDialogue { get; private set; }
+    public bool NextDialogueDown { get; private set; }
     
     // -- UNITY
 
@@ -23,6 +23,6 @@ public sealed class PlayerInput : MonoBehaviour
             Input.GetAxisRaw( VerticalAxisName )
         ).normalized;
 
-        NextDialogue = Input.GetButton( NextDialogueName );
+        NextDialogueDown = Input.GetButtonDown( NextDialogueName );
     }
 }
