@@ -8,6 +8,8 @@ public sealed class DialogueBox : MonoBehaviour
 
     [SerializeField] private TMP_Text _textComponent = null;
 
+    private bool _speedUpDialogue = false;
+
     // -- PROPERTIES
 
     public bool Display
@@ -28,6 +30,7 @@ public sealed class DialogueBox : MonoBehaviour
     /// </summary>
     public void StartDialogueEntry( DialogueEntryData dialogue_data )
     {
+        _speedUpDialogue = false;
         _textComponent.text = string.Empty;
 
         StartCoroutine( WriteDialogueEntryRoutine( dialogue_data ) );
@@ -39,9 +42,36 @@ public sealed class DialogueBox : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime( 1f / dialogue_data.Speed );
 
-            _textComponent.text += character;
+            if( _speedUpDialogue )
+            {
+                _speedUpDialogue = false;
+                _textComponent.text = dialogue_data.Text;
+
+                break;
+            }
+            else
+            {
+                _textComponent.text += character;
+            }
         }
 
         OnDialogeEntryFinished?.Invoke( this );
+    }
+
+    private void PlayerInput_OnNextDialogueButtonDown()
+    {
+        _speedUpDialogue = true;
+    }
+
+    // -- UNITY
+
+    private void Start()
+    {
+        GameManager.Instance.Player.PlayerInput.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.Player.PlayerInput.OnNextDialogueButtonDown -= PlayerInput_OnNextDialogueButtonDown;
     }
 }

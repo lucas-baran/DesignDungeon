@@ -12,7 +12,13 @@ public sealed class PlayerInput : MonoBehaviour
 
     public Vector2 AxisInput { get; private set; }
     public bool NextDialogueDown { get; private set; }
-    
+
+    // -- EVENTS
+
+    public delegate void ButtonDownHandler();
+
+    public event ButtonDownHandler OnNextDialogueButtonDown;
+
     // -- UNITY
 
     private void Update()
@@ -24,5 +30,9 @@ public sealed class PlayerInput : MonoBehaviour
         ).normalized;
 
         NextDialogueDown = Input.GetButtonDown( NextDialogueName );
+        if( NextDialogueDown )
+        {
+            OnNextDialogueButtonDown?.Invoke();
+        }
     }
 }
