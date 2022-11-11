@@ -113,6 +113,6 @@ public sealed class DialogueSystem : MonoBehaviour
             dialogue_box_data.DialogueBox.OnDialogeEntryFinished += DialogueBox_OnDialogeEntryFinished;
         }
 
-        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && GameManager.Instance.Player.PlayerInput.NextDialogueDown );
+        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && Player.Instance.PlayerInput.NextDialogueDown );
     }
 }

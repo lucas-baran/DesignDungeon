@@ -67,11 +67,11 @@ public sealed class DialogueBox : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.Player.PlayerInput.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
+        Player.Instance.PlayerInput.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
     }
 
     private void OnDestroy()
     {
-        GameManager.Instance.Player.PlayerInput.OnNextDialogueButtonDown -= PlayerInput_OnNextDialogueButtonDown;
+        Player.Instance.PlayerInput.OnNextDialogueButtonDown -= PlayerInput_OnNextDialogueButtonDown;
     }
 }

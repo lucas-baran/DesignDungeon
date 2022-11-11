@@ -18,7 +18,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        _playerInput = GameManager.Instance.Player.PlayerInput;
+        _playerInput = Player.Instance.PlayerInput;
     }
 
     private void Update()

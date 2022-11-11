@@ -10,8 +10,6 @@ public sealed class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public Player Player { get; private set; }
-
     public bool IsPaused
     {
         get => _isPaused;
@@ -49,8 +47,6 @@ public sealed class GameManager : MonoBehaviour
         if( Instance == null )
         {
             Instance = this;
-
-            Player = FindObjectOfType<Player>();
         }
         else
         {
