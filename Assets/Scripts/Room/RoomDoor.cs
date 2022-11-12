@@ -30,6 +30,7 @@ public sealed class RoomDoor : MonoBehaviour
         if( collision.CompareTag( TagConstants.PlayerTag ) )
         {
             Player.Instance.PlayerInput.Lock();
+            Player.Instance.PlayerController.ResetVelocity();
 
             _doorData.Enter();
         }

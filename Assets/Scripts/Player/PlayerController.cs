@@ -44,6 +44,11 @@ public sealed class PlayerController : MonoBehaviour
 
     // -- METHODS
 
+    public void ResetVelocity()
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+    }
+
     public void AddForce( Vector2 force, ForceMode2D mode = ForceMode2D.Force )
     {
         _rigidbody2D.AddForce( force, mode );
@@ -51,12 +56,12 @@ public sealed class PlayerController : MonoBehaviour
 
     private void PlayerInput_OnInputLocked()
     {
-        _rigidbody2D.velocity = Vector2.zero;
+        ResetVelocity();
     }
 
     private void Instance_OnPauseStateChanged( bool is_paused )
     {
-        _rigidbody2D.velocity = Vector2.zero;
+        ResetVelocity();
     }
 
     // -- UNITY
