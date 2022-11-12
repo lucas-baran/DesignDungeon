@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: fa0eb9a85e09f1a46abbce9e02f3c628
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - SinsGold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 09ac642f761d37b4e8fc0f6d3406fb94, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
