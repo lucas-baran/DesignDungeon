@@ -12,21 +12,4 @@ public sealed class RoomData : ScriptableObject
     public Room Room { get; set; }
     public string SceneName => name;
     public DoorData[] Doors => _doors;
-
-    // -- UNITY
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if( _doors == null )
-        {
-            return;
-        }
-
-        foreach( var door in _doors )
-        {
-            door.SceneName = name;
-        }
-    }
-#endif
 }

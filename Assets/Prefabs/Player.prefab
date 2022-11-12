@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _startingAbility: {fileID: 11400000, guid: a8baad046e2cfd44993ca3fc3edfe908, type: 2}
+  _startingSpecialAbility: {fileID: 11400000, guid: a8baad046e2cfd44993ca3fc3edfe908, type: 2}
 --- !u!114 &6298982793024421840
 MonoBehaviour:
   m_ObjectHideFlags: 0
