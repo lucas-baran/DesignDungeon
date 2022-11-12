@@ -11,12 +11,18 @@ public sealed class Player : MonoBehaviour
     public Camera PlayerCamera { get; private set; }
     public PlayerController PlayerController { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
+    public PlayerLife PlayerLife { get; private set; }
 
     // -- METHODS
 
     public void Teleport( Vector3 position )
     {
         _transform.position = position;
+    }
+
+    private void PlayerLife_OnDied( PlayerLife player_life )
+    {
+        PlayerInput.Lock();
     }
 
     // -- UNITY
@@ -39,5 +45,16 @@ public sealed class Player : MonoBehaviour
         PlayerCamera = Camera.main;
         PlayerController = GetComponent<PlayerController>();
         PlayerInput = GetComponent<PlayerInput>();
+        PlayerLife = GetComponent<PlayerLife>();
+    }
+
+    private void Start()
+    {
+        PlayerLife.OnDied += PlayerLife_OnDied;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerLife.OnDied -= PlayerLife_OnDied;
     }
 }
