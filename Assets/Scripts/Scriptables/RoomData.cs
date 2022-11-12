@@ -9,6 +9,8 @@ public sealed class RoomData : ScriptableObject
 
     // -- PROPERTIES
 
+    public Room Room { get; set; }
+    public string SceneName => name;
     public DoorData[] Doors => _doors;
 
     // -- UNITY

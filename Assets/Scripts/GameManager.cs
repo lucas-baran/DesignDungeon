@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,9 +7,10 @@ public sealed class GameManager : MonoBehaviour
 {
     // -- FIELDS
 
-    [SerializeField] private int SpawnScene = 0;
+    [SerializeField] private RoomData SpawnRoom = null;
 
     private bool _isPaused = false;
+    private List<string> _loadedScenes = new List<string>();
 
     // -- PROPERTIES
 
@@ -45,14 +48,48 @@ public sealed class GameManager : MonoBehaviour
 
     // -- METHODS
 
-    public void LoadScene( string scene_name )
+    private IEnumerator LoadSpawnRoom()
     {
-        if( SceneManager.GetSceneByName(scene_name).isLoaded )
+        if( LoadScene( SpawnRoom.SceneName, out AsyncOperation scene_load ) )
         {
-            return;
+            while( !scene_load.isDone )
+            {
+                yield return null;
+            }
         }
 
-        SceneManager.LoadSceneAsync( scene_name, LoadSceneMode.Additive );
+        Player.Instance.Teleport( SpawnRoom.Room.SpawnPosition );
+        SpawnRoom.Room.LoadNeighbourRooms();
+    }
+
+    public bool LoadScene( string scene_name, out AsyncOperation scene_load )
+    {
+        var scene = SceneManager.GetSceneByName( scene_name );
+
+        if( _loadedScenes.Contains( scene_name ) )
+        {
+            scene_load = null;
+
+            return false;
+        }
+
+        if( scene.isLoaded )
+        {
+            if( !_loadedScenes.Contains( scene_name ) )
+            {
+                _loadedScenes.Add( scene_name );
+            }
+
+            scene_load = null;
+
+            return false;
+        }
+
+        _loadedScenes.Add( scene_name );
+
+        scene_load = SceneManager.LoadSceneAsync( scene_name, LoadSceneMode.Additive );
+
+        return true;
     }
 
     // -- UNITY
@@ -66,11 +103,18 @@ public sealed class GameManager : MonoBehaviour
         else
         {
             Destroy( this );
+
+            return;
+        }
+
+        for( int scene_index = 0; scene_index < SceneManager.sceneCount; scene_index++ )
+        {
+            _loadedScenes.Add( SceneManager.GetSceneAt( scene_index ).name );
         }
     }
 
     private void Start()
     {
-        
+        StartCoroutine( LoadSpawnRoom() );
     }
 }
