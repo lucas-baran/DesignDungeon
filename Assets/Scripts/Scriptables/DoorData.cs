@@ -10,13 +10,7 @@ public sealed class DoorData : ScriptableObject
 
     // -- PROPERTIES
 
-    public string SceneName
-    {
-        get => _scene;
-#if UNITY_EDITOR
-        set => _scene = value;
-#endif
-    }
+    public string SceneName => _scene;
 
     public RoomDoor Door { get; set; }
     public bool IsSceneLoaded => SceneManager.GetSceneByName( SceneName ).isLoaded;
