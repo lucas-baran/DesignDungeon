@@ -5,39 +5,41 @@ public sealed class PlayerController : MonoBehaviour
     // -- FIELDS
 
     [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private AbilityData _startingAbility = null;
+    [SerializeField] private AbilityData _startingSpecialAbility = null;
 
     private PlayerInput _playerInput = null;
     private Rigidbody2D _rigidbody2D = null;
 
-    private AbilityData _selectedAbility = null;
+    private AbilityData _specialAbility = null;
     private float _specialAbilityActiveTimer = 0f;
     private float _specialAbilityCooldownTimer = 0f;
     private bool _specialAbilityActivated = false;
 
     // -- PROPERTIES
 
-    private bool CanSpecialAbility => _specialAbilityActiveTimer <= 0f && _specialAbilityCooldownTimer <= 0f && _selectedAbility.CanActivate();
+    public float SpecialAbilityCooldown01 => Mathf.Max( 0f, _specialAbilityCooldownTimer ) / _specialAbility.Cooldown;
 
-    public AbilityData SelectedAbility
+    private bool CanSpecialAbility => _specialAbilityActiveTimer <= 0f && _specialAbilityCooldownTimer <= 0f && _specialAbility.CanActivate();
+
+    public AbilityData SpecialAbility
     {
-        get => _selectedAbility;
+        get => _specialAbility;
         set
         {
-            if( value == _selectedAbility )
+            if( value == _specialAbility )
             {
                 return;
             }
 
-            _selectedAbility = value;
+            _specialAbility = value;
 
-            OnSpecialAbilityChanged?.Invoke( _selectedAbility );
+            OnSpecialAbilityChanged?.Invoke( _specialAbility );
         }
     }
 
     // -- EVENTS
 
-    public delegate void SpecialAbilityChangedHandler( AbilityData new_skill );
+    public delegate void SpecialAbilityChangedHandler( AbilityData new_ability );
     public event SpecialAbilityChangedHandler OnSpecialAbilityChanged;
 
     // -- METHODS
@@ -52,20 +54,26 @@ public sealed class PlayerController : MonoBehaviour
         _rigidbody2D.velocity = Vector2.zero;
     }
 
+    private void Instance_OnPauseStateChanged( bool is_paused )
+    {
+        _rigidbody2D.velocity = Vector2.zero;
+    }
+
     // -- UNITY
 
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+
+        SpecialAbility = _startingSpecialAbility;
     }
 
     private void Start()
     {
         _playerInput = Player.Instance.PlayerInput;
 
-        SelectedAbility = _startingAbility;
-
         Player.Instance.PlayerInput.OnInputLocked += PlayerInput_OnInputLocked;
+        GameManager.Instance.OnPauseStateChanged += Instance_OnPauseStateChanged;
     }
 
     private void Update()
@@ -76,9 +84,9 @@ public sealed class PlayerController : MonoBehaviour
         if( _specialAbilityActivated && _specialAbilityActiveTimer <= 0 )
         {
             _specialAbilityActivated = false;
-            _specialAbilityCooldownTimer = _selectedAbility.Cooldown;
+            _specialAbilityCooldownTimer = _specialAbility.Cooldown;
 
-            _selectedAbility.End();
+            _specialAbility.End();
         }
 
         if( _playerInput.InputLocked )
@@ -90,15 +98,16 @@ public sealed class PlayerController : MonoBehaviour
 
         if( _playerInput.SpecialAbilityDown && CanSpecialAbility )
         {
-            _specialAbilityActiveTimer = _selectedAbility.ActiveTime;
+            _specialAbilityActiveTimer = _specialAbility.ActiveTime;
             _specialAbilityActivated = true;
 
-            _selectedAbility.Activate();
+            _specialAbility.Activate();
         }
     }
 
     private void OnDestroy()
     {
         Player.Instance.PlayerInput.OnInputLocked -= PlayerInput_OnInputLocked;
+        GameManager.Instance.OnPauseStateChanged -= Instance_OnPauseStateChanged;
     }
 }

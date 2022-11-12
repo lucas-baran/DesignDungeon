@@ -38,7 +38,6 @@ public sealed class PlayerInput : MonoBehaviour
     {
         _lockCount++;
 
-        NextDialogueDown = false;
         WeaponAbilityDown = false;
         SpecialAbilityDown = false;
 
@@ -57,6 +56,12 @@ public sealed class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        NextDialogueDown = Input.GetButtonDown( NextDialogueName );
+        if( NextDialogueDown )
+        {
+            OnNextDialogueButtonDown?.Invoke();
+        }
+
         if( InputLocked )
         {
             return;
@@ -69,12 +74,6 @@ public sealed class PlayerInput : MonoBehaviour
             Input.GetAxisRaw( HorizontalAxisName ),
             Input.GetAxisRaw( VerticalAxisName )
         ).normalized;
-
-        NextDialogueDown = Input.GetButtonDown( NextDialogueName );
-        if( NextDialogueDown )
-        {
-            OnNextDialogueButtonDown?.Invoke();
-        }
 
         if( Input.GetButtonDown( ToggleSkillTreeName ) )
         {
