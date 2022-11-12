@@ -35,14 +35,18 @@ public sealed class DialogueSystem : MonoBehaviour
     
     // -- METHODS
 
-    public void StartDialogue( DialogueData dialogue_data )
+    public bool StartDialogue( DialogueData dialogue_data )
     {
         if( _writeDialogueCoroutine != null )
         {
-            throw new System.NotSupportedException( "Tried to start a dialogue while another is already running" );
+            Debug.LogWarning( "Tried to start a dialogue while another is already running." );
+
+            return false;
         }
 
         _writeDialogueCoroutine = StartCoroutine( WriteDialogueRoutine( dialogue_data ) );
+
+        return true;
     }
 
     private IEnumerator WriteDialogueRoutine( DialogueData dialogue_data )

@@ -22,8 +22,9 @@ public class DialogueTrigger : MonoBehaviour
             return;
         }
 
-        _triggerCount++;
-
-        DialogueSystem.Instance.StartDialogue( _dialogueToDisplay );
+        if( DialogueSystem.Instance.StartDialogue( _dialogueToDisplay ) )
+        {
+            _triggerCount++;
+        }
     }
 }
