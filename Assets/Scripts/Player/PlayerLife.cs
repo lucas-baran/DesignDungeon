@@ -35,8 +35,11 @@ public sealed class PlayerLife : MonoBehaviour
 
     // -- EVENTS
 
-    public delegate void EntityDiedHandler( PlayerLife entity_life );
-    public event EntityDiedHandler OnDied = null;
+    public delegate void PlayerDiedHandler( PlayerLife entity_life );
+    public event PlayerDiedHandler OnDied = null;
+
+    public delegate void PlayerDamagedHandler( PlayerLife entity_life );
+    public event PlayerDamagedHandler OnPlayerDamaged = null;
 
     public delegate void InvincibilityStateChangedHandler( bool invincible );
     public event InvincibilityStateChangedHandler OnInvincibilityStateChanged = null;
@@ -55,6 +58,10 @@ public sealed class PlayerLife : MonoBehaviour
         if( _currentHealth == 0f )
         {
             OnDied?.Invoke( this );
+        }
+        else
+        {
+            OnPlayerDamaged?.Invoke( this );
         }
     }
 

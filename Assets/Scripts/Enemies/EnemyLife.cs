@@ -19,8 +19,8 @@ public sealed class EnemyLife : MonoBehaviour
 
     // -- EVENTS
 
-    public delegate void EntityDiedHandler( EnemyLife entity_life );
-    public event EntityDiedHandler OnDied = null;
+    public delegate void EnemyDiedHandler( EnemyLife entity_life );
+    public event EnemyDiedHandler OnDied = null;
 
     // -- METHODS
 

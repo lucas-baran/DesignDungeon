@@ -20,8 +20,8 @@ public sealed class DialogueBox : HideOnPlay
 
     // -- EVENTS
 
-    public delegate void DialogueEntryFinishedHandler( DialogueBox dialogue_box );
-    public event DialogueEntryFinishedHandler OnDialogeEntryFinished;
+    public delegate void DialogueEntryEndedHandler( DialogueBox dialogue_box );
+    public event DialogueEntryEndedHandler OnDialogeEntryEnded;
 
     // -- METHODS
 
@@ -55,7 +55,7 @@ public sealed class DialogueBox : HideOnPlay
             }
         }
 
-        OnDialogeEntryFinished?.Invoke( this );
+        OnDialogeEntryEnded?.Invoke( this );
     }
 
     private void PlayerInput_OnNextDialogueButtonDown()

@@ -113,9 +113,17 @@ public sealed class DialogueSystem : MonoBehaviour
         {
             _dialogueBoxMap.Add( dialogue_box_data.Position, dialogue_box_data.DialogueBox );
 
-            dialogue_box_data.DialogueBox.OnDialogeEntryFinished += DialogueBox_OnDialogeEntryFinished;
+            dialogue_box_data.DialogueBox.OnDialogeEntryEnded += DialogueBox_OnDialogeEntryFinished;
         }
 
         _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && Player.Instance.PlayerInput.NextDialogueDown );
+    }
+
+    private void OnDestroy()
+    {
+        foreach( var dialogue_box_data in _dialogueBoxes )
+        {
+            dialogue_box_data.DialogueBox.OnDialogeEntryEnded -= DialogueBox_OnDialogeEntryFinished;
+        }
     }
 }
