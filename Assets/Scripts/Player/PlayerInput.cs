@@ -8,6 +8,8 @@ public sealed class PlayerInput : MonoBehaviour
     private const string VerticalAxisName = "Vertical";
     private const string NextDialogueName = "NextDialogue";
     private const string ToggleSkillTreeName = "ToggleSkillTree";
+    private const string PerformWeaponAbilityName = "PerformWeaponAbility";
+    private const string PerformSpecialAbilityName = "PerformSpecialAbility";
 
     // -- FIELDS
 
@@ -15,14 +17,18 @@ public sealed class PlayerInput : MonoBehaviour
 
     // -- PROPERTIES
 
+    public Vector2 MousePosition { get; private set; }
     public Vector2 AxisInput { get; private set; }
     public bool NextDialogueDown { get; private set; }
+    public bool WeaponAbilityDown { get; private set; }
+    public bool SpecialAbilityDown { get; private set; }
     public bool InputLocked => _lockCount > 0;
 
     // -- EVENTS
 
     public delegate void ButtonDownHandler();
 
+    public event ButtonDownHandler OnInputLocked;
     public event ButtonDownHandler OnNextDialogueButtonDown;
     public event ButtonDownHandler OnToggleSkillTreeButtonDown;
 
@@ -31,6 +37,15 @@ public sealed class PlayerInput : MonoBehaviour
     public void Lock()
     {
         _lockCount++;
+
+        NextDialogueDown = false;
+        WeaponAbilityDown = false;
+        SpecialAbilityDown = false;
+
+        if( _lockCount == 1 )
+        {
+            OnInputLocked?.Invoke();
+        }
     }
 
     public void Unlock()
@@ -46,6 +61,8 @@ public sealed class PlayerInput : MonoBehaviour
         {
             return;
         }
+
+        MousePosition = Player.Instance.PlayerCamera.ScreenToWorldPoint( Input.mousePosition );
 
         AxisInput = new Vector2
         (
@@ -63,5 +80,9 @@ public sealed class PlayerInput : MonoBehaviour
         {
             OnToggleSkillTreeButtonDown?.Invoke();
         }
+
+        WeaponAbilityDown = Input.GetButtonDown( PerformWeaponAbilityName );
+
+        SpecialAbilityDown = Input.GetButtonDown( PerformSpecialAbilityName );
     }
 }
