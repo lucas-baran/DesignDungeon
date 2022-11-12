@@ -6,24 +6,27 @@ public sealed class Room : MonoBehaviour
     // -- FIELDS
 
     [SerializeField] private RoomData _roomData = null;
-    [SerializeField] private Transform _cameraPosition = null;
+    [SerializeField] private Transform _cameraPoint = null;
+    [SerializeField] private Transform _spawnPoint = null;
 
+    // -- PROPERTIES
+
+    public Vector3 SpawnPosition => _spawnPoint.position;
+    
     // -- METHODS
 
     private void EnterDoor( RoomDoor door )
     {
-        // TODO fade transition
-
         Player.Instance.PlayerCamera.transform.position = new Vector3
         (
-            door.Room._cameraPosition.position.x,
-            door.Room._cameraPosition.position.y,
+            door.Room._cameraPoint.position.x,
+            door.Room._cameraPoint.position.y,
             Player.Instance.PlayerCamera.transform.position.z
         );
 
         Player.Instance.Teleport( door.EntrancePosition );
 
-        LoadNeighbourScenes();
+        LoadNeighbourRooms();
 
         Player.Instance.PlayerInput.Unlock();
     }
@@ -38,11 +41,11 @@ public sealed class Room : MonoBehaviour
         EnterDoor( door_data.Door.LinkedDoorData.Door );
     }
 
-    private void LoadNeighbourScenes()
+    public void LoadNeighbourRooms()
     {
         foreach( var door_data in _roomData.Doors )
         {
-            GameManager.Instance.LoadScene( door_data.SceneName );
+            GameManager.Instance.LoadScene( door_data.Door.LinkedDoorData.SceneName, out _ );
         }
     }
 
@@ -62,6 +65,8 @@ public sealed class Room : MonoBehaviour
 
     private void Start()
     {
+        _roomData.Room = this;
+
         foreach( var door_data in _roomData.Doors )
         {
             door_data.Door.Room = this;

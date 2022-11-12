@@ -3015,5 +3015,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room
       objectReference: {fileID: 0}
+    - target: {fileID: 7216814789542748347, guid: 99da04fb1915db74ba1a96eda807a7eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.4991074
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99da04fb1915db74ba1a96eda807a7eb, type: 3}
