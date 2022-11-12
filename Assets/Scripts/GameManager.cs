@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public sealed class GameManager : MonoBehaviour
 {
     // -- FIELDS
+
+    [SerializeField] private int SpawnScene = 0;
 
     private bool _isPaused = false;
 
@@ -40,6 +43,18 @@ public sealed class GameManager : MonoBehaviour
     public delegate void PauseStateChanged( bool is_paused );
     public event PauseStateChanged OnPauseStateChanged;
 
+    // -- METHODS
+
+    public void LoadScene( string scene_name )
+    {
+        if( SceneManager.GetSceneByName(scene_name).isLoaded )
+        {
+            return;
+        }
+
+        SceneManager.LoadSceneAsync( scene_name, LoadSceneMode.Additive );
+    }
+
     // -- UNITY
 
     private void Awake()
@@ -52,5 +67,10 @@ public sealed class GameManager : MonoBehaviour
         {
             Destroy( this );
         }
+    }
+
+    private void Start()
+    {
+        
     }
 }

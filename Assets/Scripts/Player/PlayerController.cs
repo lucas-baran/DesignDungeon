@@ -23,6 +23,13 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if( _playerInput.InputLocked )
+        {
+            _rigidbody2D.velocity = Vector2.zero;
+
+            return;
+        }
+
         _rigidbody2D.velocity = _moveSpeed * _playerInput.AxisInput;
     }
 }
