@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8552788636934628331}
   - component: {fileID: 8552788636934628332}
   - component: {fileID: 6298982793024421840}
+  - component: {fileID: 5693099180775440301}
   - component: {fileID: 8552788636934628334}
   - component: {fileID: 8552788636934628330}
   - component: {fileID: 8552788636934628325}
@@ -75,7 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _startingSpecialAbility: {fileID: 11400000, guid: a8baad046e2cfd44993ca3fc3edfe908, type: 2}
 --- !u!114 &6298982793024421840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +90,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 6
   _startingHealth: 6
+--- !u!114 &5693099180775440301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8552788636934628333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa256609c405c7409c8728604dfc8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingAbilities:
+  - {fileID: 11400000, guid: a8baad046e2cfd44993ca3fc3edfe908, type: 2}
+  - {fileID: 11400000, guid: d7054ea25ea238f4691de2509d5514ef, type: 2}
+  - {fileID: 11400000, guid: 0386c4d1757999840875a6ca764bda5a, type: 2}
+  - {fileID: 11400000, guid: 5ae17a34ce99fce49936d04727a569fe, type: 2}
 --- !u!212 &8552788636934628334
 SpriteRenderer:
   m_ObjectHideFlags: 0

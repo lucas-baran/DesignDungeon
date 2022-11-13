@@ -8,8 +8,10 @@ public sealed class PlayerInput : MonoBehaviour
     private const string VerticalAxisName = "Vertical";
     private const string NextDialogueName = "NextDialogue";
     private const string ToggleSkillTreeName = "ToggleSkillTree";
-    private const string PerformWeaponAbilityName = "PerformWeaponAbility";
+    private const string PerformNormalAbilityName = "PerformNormalAbility";
+    private const string PerformMovementAbilityName = "PerformMovementAbility";
     private const string PerformSpecialAbilityName = "PerformSpecialAbility";
+    private const string PerformPotionAbilityName = "PerformPotionAbility";
 
     // -- FIELDS
 
@@ -21,7 +23,6 @@ public sealed class PlayerInput : MonoBehaviour
     public Vector2 AxisInput { get; private set; }
     public bool NextDialogueDown { get; private set; }
     public bool WeaponAbilityDown { get; private set; }
-    public bool SpecialAbilityDown { get; private set; }
     public bool InputLocked => _lockCount > 0;
 
     // -- EVENTS
@@ -32,6 +33,9 @@ public sealed class PlayerInput : MonoBehaviour
     public event ButtonDownHandler OnNextDialogueButtonDown;
     public event ButtonDownHandler OnToggleSkillTreeButtonDown;
 
+    public delegate void AbilityDownHandler( EAbilityCategory ability_category );
+    public event AbilityDownHandler OnAbilityDown;
+
     // -- METHODS
 
     public void Lock()
@@ -39,7 +43,6 @@ public sealed class PlayerInput : MonoBehaviour
         _lockCount++;
 
         WeaponAbilityDown = false;
-        SpecialAbilityDown = false;
 
         if( _lockCount == 1 )
         {
@@ -67,7 +70,7 @@ public sealed class PlayerInput : MonoBehaviour
             return;
         }
 
-        MousePosition = Player.Instance.PlayerCamera.ScreenToWorldPoint( Input.mousePosition );
+        MousePosition = Player.Instance.Camera.ScreenToWorldPoint( Input.mousePosition );
 
         AxisInput = new Vector2
         (
@@ -80,8 +83,24 @@ public sealed class PlayerInput : MonoBehaviour
             OnToggleSkillTreeButtonDown?.Invoke();
         }
 
-        WeaponAbilityDown = Input.GetButtonDown( PerformWeaponAbilityName );
+        if( Input.GetButtonDown( PerformNormalAbilityName ) )
+        {
+            OnAbilityDown?.Invoke( EAbilityCategory.Normal );
+        }
 
-        SpecialAbilityDown = Input.GetButtonDown( PerformSpecialAbilityName );
+        if( Input.GetButtonDown( PerformMovementAbilityName ) )
+        {
+            OnAbilityDown?.Invoke( EAbilityCategory.Movement );
+        }
+
+        if( Input.GetButtonDown( PerformSpecialAbilityName ) )
+        {
+            OnAbilityDown?.Invoke( EAbilityCategory.Special );
+        }
+
+        if( Input.GetButtonDown( PerformPotionAbilityName ) )
+        {
+            OnAbilityDown?.Invoke( EAbilityCategory.Potion );
+        }
     }
 }

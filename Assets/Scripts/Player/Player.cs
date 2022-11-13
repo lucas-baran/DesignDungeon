@@ -2,16 +2,19 @@ using UnityEngine;
 
 public sealed class Player : MonoBehaviour
 {
+    // -- FIELDS
+
     private Transform _transform = null;
 
     // -- PROPERTIES
 
     public static Player Instance { get; private set; }
 
-    public Camera PlayerCamera { get; private set; }
-    public PlayerController PlayerController { get; private set; }
-    public PlayerInput PlayerInput { get; private set; }
-    public PlayerLife PlayerLife { get; private set; }
+    public Camera Camera { get; private set; }
+    public PlayerInput Input { get; private set; }
+    public PlayerController Controller { get; private set; }
+    public PlayerAbilities Abilities { get; private set; }
+    public PlayerLife Life { get; private set; }
 
     // -- METHODS
 
@@ -22,7 +25,7 @@ public sealed class Player : MonoBehaviour
 
     private void PlayerLife_OnDied( PlayerLife player_life )
     {
-        PlayerInput.Lock();
+        Input.Lock();
     }
 
     // -- UNITY
@@ -42,19 +45,20 @@ public sealed class Player : MonoBehaviour
 
         _transform = transform;
 
-        PlayerCamera = Camera.main;
-        PlayerController = GetComponent<PlayerController>();
-        PlayerInput = GetComponent<PlayerInput>();
-        PlayerLife = GetComponent<PlayerLife>();
+        Camera = Camera.main;
+        Input = GetComponent<PlayerInput>();
+        Controller = GetComponent<PlayerController>();
+        Abilities = GetComponent<PlayerAbilities>();
+        Life = GetComponent<PlayerLife>();
     }
 
     private void Start()
     {
-        PlayerLife.OnDied += PlayerLife_OnDied;
+        Life.OnDied += PlayerLife_OnDied;
     }
 
     private void OnDestroy()
     {
-        PlayerLife.OnDied -= PlayerLife_OnDied;
+        Life.OnDied -= PlayerLife_OnDied;
     }
 }

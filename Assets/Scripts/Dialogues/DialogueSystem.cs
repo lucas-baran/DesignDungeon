@@ -116,7 +116,7 @@ public sealed class DialogueSystem : MonoBehaviour
             dialogue_box_data.DialogueBox.OnDialogeEntryEnded += DialogueBox_OnDialogeEntryFinished;
         }
 
-        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && Player.Instance.PlayerInput.NextDialogueDown );
+        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && Player.Instance.Input.NextDialogueDown );
     }
 
     private void OnDestroy()
