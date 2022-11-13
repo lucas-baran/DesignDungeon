@@ -12,30 +12,30 @@ public sealed class DashData : AbilityData
 
     public override bool CanActivate()
     {
-        return Player.Instance.PlayerInput.AxisInput != Vector2.zero;
+        return Player.Instance.Input.AxisInput != Vector2.zero;
     }
 
     public override void Activate()
     {
-        Vector2 dash_direction = Player.Instance.PlayerInput.AxisInput;
+        Vector2 dash_direction = Player.Instance.Input.AxisInput;
 
-        Player.Instance.PlayerInput.Lock();
+        Player.Instance.Input.Lock();
 
         if( _invincibility )
         {
-            Player.Instance.PlayerLife.Invincible = true;
+            Player.Instance.Life.Invincible = true;
         }
 
-        Player.Instance.PlayerController.AddForce( _dashVelocity * dash_direction, ForceMode2D.Impulse );
+        Player.Instance.Controller.AddForce( _dashVelocity * dash_direction, ForceMode2D.Impulse );
     }
 
     public override void End()
     {
-        Player.Instance.PlayerInput.Unlock();
+        Player.Instance.Input.Unlock();
 
         if( _invincibility )
         {
-            Player.Instance.PlayerLife.Invincible = false;
+            Player.Instance.Life.Invincible = false;
         }
     }
 }

@@ -12,7 +12,7 @@ public sealed class DebugCheatManager : MonoBehaviour
 
         if( Input.GetKeyDown( KeyCode.F1 ) )
         {
-            Player.Instance.PlayerLife.ChangeHealth( int.MinValue );
+            Player.Instance.Life.ChangeHealth( int.MinValue );
         }
     }
 }

@@ -23,11 +23,11 @@ public sealed class SkillTree : HideOnPlay
     {
         base.Start();
 
-        Player.Instance.PlayerInput.OnToggleSkillTreeButtonDown += PlayerInput_OnToggleSkillTreeButtonDown;
+        Player.Instance.Input.OnToggleSkillTreeButtonDown += PlayerInput_OnToggleSkillTreeButtonDown;
     }
 
     private void OnDestroy()
     {
-        Player.Instance.PlayerInput.OnToggleSkillTreeButtonDown -= PlayerInput_OnToggleSkillTreeButtonDown;
+        Player.Instance.Input.OnToggleSkillTreeButtonDown -= PlayerInput_OnToggleSkillTreeButtonDown;
     }
 }

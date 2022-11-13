@@ -17,18 +17,18 @@ public sealed class Room : MonoBehaviour
 
     private void EnterDoor( RoomDoor door )
     {
-        Player.Instance.PlayerCamera.transform.position = new Vector3
+        Player.Instance.Camera.transform.position = new Vector3
         (
             door.DoorData.LinkedRoomData.Room._cameraPoint.position.x,
             door.DoorData.LinkedRoomData.Room._cameraPoint.position.y,
-            Player.Instance.PlayerCamera.transform.position.z
+            Player.Instance.Camera.transform.position.z
         );
 
         Player.Instance.Teleport( door.DoorData.LinkedDoorData.Door.EntrancePosition );
 
         LoadNeighbourRooms();
 
-        Player.Instance.PlayerInput.Unlock();
+        Player.Instance.Input.Unlock();
     }
 
     private IEnumerator EnterDoorRoutine( RoomDoor door )

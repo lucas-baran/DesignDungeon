@@ -69,11 +69,11 @@ public sealed class DialogueBox : HideOnPlay
     {
         base.Start();
 
-        Player.Instance.PlayerInput.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
+        Player.Instance.Input.OnNextDialogueButtonDown += PlayerInput_OnNextDialogueButtonDown;
     }
 
     private void OnDestroy()
     {
-        Player.Instance.PlayerInput.OnNextDialogueButtonDown -= PlayerInput_OnNextDialogueButtonDown;
+        Player.Instance.Input.OnNextDialogueButtonDown -= PlayerInput_OnNextDialogueButtonDown;
     }
 }
