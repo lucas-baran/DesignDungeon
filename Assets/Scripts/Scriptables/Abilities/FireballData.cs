@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu( fileName = "Fireball", menuName = "Skills/Fireball" )]
-public sealed class Fireball : AbilityData
+public sealed class FireballData : AbilityData
 {
     // -- FIELDS
 

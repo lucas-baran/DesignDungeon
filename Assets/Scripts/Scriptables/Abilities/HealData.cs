@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu( fileName = "Heal", menuName = "Skills/Heal" )]
-public sealed class Heal : AbilityData
+public sealed class HealData : AbilityData
 {
     // -- FIELDS
 
