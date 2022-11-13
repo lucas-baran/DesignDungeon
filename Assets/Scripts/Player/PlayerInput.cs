@@ -11,6 +11,7 @@ public sealed class PlayerInput : MonoBehaviour
     private const string PerformNormalAbilityName = "PerformNormalAbility";
     private const string PerformMovementAbilityName = "PerformMovementAbility";
     private const string PerformSpecialAbilityName = "PerformSpecialAbility";
+    private const string PerformPotionAbilityName = "PerformPotionAbility";
 
     // -- FIELDS
 
@@ -95,6 +96,11 @@ public sealed class PlayerInput : MonoBehaviour
         if( Input.GetButtonDown( PerformSpecialAbilityName ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Special );
+        }
+
+        if( Input.GetButtonDown( PerformPotionAbilityName ) )
+        {
+            OnAbilityDown?.Invoke( EAbilityCategory.Potion );
         }
     }
 }

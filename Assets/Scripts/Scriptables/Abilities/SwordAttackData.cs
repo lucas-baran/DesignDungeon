@@ -9,18 +9,8 @@ public sealed class SwordAttackData : AbilityData
 
     // -- METHODS
 
-    public override bool CanActivate()
-    {
-        return true;
-    }
-
     public override void Activate()
     {
         Debug.Log( "Sword attack!" );
-    }
-
-    public override void End()
-    {
-
     }
 }
