@@ -12,6 +12,14 @@ public sealed class DebugCheatManager : MonoBehaviour
 
         if( Input.GetKeyDown( KeyCode.F1 ) )
         {
+            Player.Instance.Life.ChangeHealth( -1 );
+        }
+        else if( Input.GetKeyDown( KeyCode.F2 ) )
+        {
+            Player.Instance.Life.ChangeHealth( 1 );
+        }
+        else if( Input.GetKeyDown( KeyCode.F3 ) )
+        {
             Player.Instance.Life.ChangeHealth( int.MinValue );
         }
     }
