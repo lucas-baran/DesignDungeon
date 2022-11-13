@@ -10,7 +10,7 @@ public sealed class GameManager : MonoBehaviour
     [SerializeField] private RoomData SpawnRoom = null;
 
     private bool _isPaused = false;
-    private List<string> _loadedScenes = new List<string>();
+    private List<string> _loadedAndLoadingScenes = new List<string>();
 
     // -- PROPERTIES
 
@@ -62,11 +62,16 @@ public sealed class GameManager : MonoBehaviour
         SpawnRoom.Room.LoadNeighbourRooms();
     }
 
+    public bool IsSceneLoadedOrLoading( string scene_name )
+    {
+        return _loadedAndLoadingScenes.Contains( scene_name );
+    }
+
     public bool LoadScene( string scene_name, out AsyncOperation scene_load )
     {
         var scene = SceneManager.GetSceneByName( scene_name );
 
-        if( _loadedScenes.Contains( scene_name ) )
+        if( _loadedAndLoadingScenes.Contains( scene_name ) )
         {
             scene_load = null;
 
@@ -75,9 +80,9 @@ public sealed class GameManager : MonoBehaviour
 
         if( scene.isLoaded )
         {
-            if( !_loadedScenes.Contains( scene_name ) )
+            if( !_loadedAndLoadingScenes.Contains( scene_name ) )
             {
-                _loadedScenes.Add( scene_name );
+                _loadedAndLoadingScenes.Add( scene_name );
             }
 
             scene_load = null;
@@ -85,7 +90,7 @@ public sealed class GameManager : MonoBehaviour
             return false;
         }
 
-        _loadedScenes.Add( scene_name );
+        _loadedAndLoadingScenes.Add( scene_name );
 
         scene_load = SceneManager.LoadSceneAsync( scene_name, LoadSceneMode.Additive );
 
@@ -109,7 +114,7 @@ public sealed class GameManager : MonoBehaviour
 
         for( int scene_index = 0; scene_index < SceneManager.sceneCount; scene_index++ )
         {
-            _loadedScenes.Add( SceneManager.GetSceneAt( scene_index ).name );
+            _loadedAndLoadingScenes.Add( SceneManager.GetSceneAt( scene_index ).name );
         }
     }
 

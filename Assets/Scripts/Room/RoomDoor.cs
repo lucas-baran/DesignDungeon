@@ -7,20 +7,22 @@ public sealed class RoomDoor : MonoBehaviour
 
     [SerializeField] private Transform _entrancePoint = null;
     [SerializeField] private DoorData _doorData = null;
-    [SerializeField] private DoorData _linkedDoorData = null;
 
     // -- PROPERTIES
 
-    public Room Room { get; set; }
-    public DoorData LinkedDoorData => _linkedDoorData;
+    public DoorData DoorData => _doorData;
     public Vector3 EntrancePosition => _entrancePoint.position;
+
+    // -- EVENTS
+
+    public delegate void DoorEnteredHandler( RoomDoor door );
+    public event DoorEnteredHandler OnDoorEnter = null;
 
     // -- UNITY
 
-    private void Start()
+    private void Awake()
     {
         Assert.IsFalse( _doorData == null, $"The door {name} in scene {gameObject.scene} doesn't have DoorData!" );
-        Assert.IsFalse( _linkedDoorData == null, $"The door {name} in scene {gameObject.scene} isn't linked to any door!" );
 
         _doorData.Door = this;
     }
@@ -32,7 +34,7 @@ public sealed class RoomDoor : MonoBehaviour
             Player.Instance.PlayerInput.Lock();
             Player.Instance.PlayerController.ResetVelocity();
 
-            _doorData.Enter();
+            OnDoorEnter?.Invoke( this );
         }
     }
 }

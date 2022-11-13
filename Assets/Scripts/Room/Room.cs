@@ -12,66 +12,67 @@ public sealed class Room : MonoBehaviour
     // -- PROPERTIES
 
     public Vector3 SpawnPosition => _spawnPoint.position;
-    
+
     // -- METHODS
 
     private void EnterDoor( RoomDoor door )
     {
         Player.Instance.PlayerCamera.transform.position = new Vector3
         (
-            door.Room._cameraPoint.position.x,
-            door.Room._cameraPoint.position.y,
+            door.DoorData.LinkedRoomData.Room._cameraPoint.position.x,
+            door.DoorData.LinkedRoomData.Room._cameraPoint.position.y,
             Player.Instance.PlayerCamera.transform.position.z
         );
 
-        Player.Instance.Teleport( door.EntrancePosition );
+        Player.Instance.Teleport( door.DoorData.LinkedDoorData.Door.EntrancePosition );
 
         LoadNeighbourRooms();
 
         Player.Instance.PlayerInput.Unlock();
     }
 
-    private IEnumerator EnterDoorRoutine( DoorData door_data )
+    private IEnumerator EnterDoorRoutine( RoomDoor door )
     {
-        while( !door_data.Door.LinkedDoorData.IsSceneLoaded )
+        while( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneName ) )
         {
             yield return null;
         }
 
-        EnterDoor( door_data.Door.LinkedDoorData.Door );
+        EnterDoor( door );
     }
 
     public void LoadNeighbourRooms()
     {
         foreach( var door_data in _roomData.Doors )
         {
-            GameManager.Instance.LoadScene( door_data.Door.LinkedDoorData.SceneName, out _ );
+            GameManager.Instance.LoadScene( door_data.LinkedRoomData.SceneName, out _ );
         }
     }
 
-    private void DoorData_OnDoorEnter( DoorData door_data )
+    private void DoorData_OnDoorEnter( RoomDoor door )
     {
-        if( !door_data.Door.LinkedDoorData.IsSceneLoaded )
+        if( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneName ) )
         {
-            StartCoroutine( EnterDoorRoutine( door_data ) );
+            StartCoroutine( EnterDoorRoutine( door ) );
         }
         else
         {
-            EnterDoor( door_data.Door.LinkedDoorData.Door );
+            EnterDoor( door );
         }
     }
 
     // -- UNITY
 
-    private void Start()
+    private void Awake()
     {
         _roomData.Room = this;
+    }
 
+    private void Start()
+    {
         foreach( var door_data in _roomData.Doors )
         {
-            door_data.Door.Room = this;
-
-            door_data.OnDoorEnter += DoorData_OnDoorEnter;
+            door_data.Door.OnDoorEnter += DoorData_OnDoorEnter;
         }
     }
 
@@ -79,7 +80,7 @@ public sealed class Room : MonoBehaviour
     {
         foreach( var door_data in _roomData.Doors )
         {
-            door_data.OnDoorEnter -= DoorData_OnDoorEnter;
+            door_data.Door.OnDoorEnter -= DoorData_OnDoorEnter;
         }
     }
 }

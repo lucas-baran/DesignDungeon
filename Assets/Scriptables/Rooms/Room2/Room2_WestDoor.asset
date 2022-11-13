@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f212416e042b6ad4bbefc15f93d7b0dc, type: 3}
   m_Name: Room2_WestDoor
   m_EditorClassIdentifier: 
-  _scene: Room2
+  _linkedRoomData: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
+  _selectedLinkedDoorDataIndex: 0
