@@ -5,17 +5,31 @@ public sealed class AbilityDisplay : MonoBehaviour
 {
     // -- FIELDS
 
-    [SerializeField] private EAbilityCategory AbilityCategory = EAbilityCategory.Normal;
-    [SerializeField] private Image AbilityImage = null;
-    [SerializeField] private Image FillImage = null;
+    [SerializeField] private Image _abilityImage = null;
+    [SerializeField] private Image _fillImage = null;
+
+    private EAbilityCategory _abilityCategory = EAbilityCategory.Normal;
+
+    // -- PROPERTIES
+
+    public EAbilityCategory AbilityCategory
+    {
+        get => _abilityCategory;
+        set
+        {
+            _abilityCategory = value;
+
+            UpdateAbilitySprite( Player.Instance.Abilities[ value ] );
+        }
+    }
 
     // -- METHODS
 
-    private void PlayerController_OnSpecialAbilityChanged( AbilityData new_ability )
+    private void UpdateAbilitySprite( AbilityData new_ability )
     {
         if( new_ability.Category == AbilityCategory )
         {
-            AbilityImage.sprite = new_ability.Sprite;
+            _abilityImage.sprite = new_ability.Sprite;
         }
     }
 
@@ -23,18 +37,18 @@ public sealed class AbilityDisplay : MonoBehaviour
 
     private void Start()
     {
-        Player.Instance.Abilities.OnAbilityChanged += PlayerController_OnSpecialAbilityChanged;
+        Player.Instance.Abilities.OnAbilityChanged += UpdateAbilitySprite;
 
-        PlayerController_OnSpecialAbilityChanged( Player.Instance.Abilities[ AbilityCategory ] );
+        UpdateAbilitySprite( Player.Instance.Abilities[ AbilityCategory ] );
     }
 
     private void Update()
     {
-        FillImage.fillAmount = Player.Instance.Abilities.GetAbilityCooldown01( AbilityCategory );
+        _fillImage.fillAmount = Player.Instance.Abilities.GetAbilityCooldown01( AbilityCategory );
     }
 
     private void OnDestroy()
     {
-        Player.Instance.Abilities.OnAbilityChanged -= PlayerController_OnSpecialAbilityChanged;
+        Player.Instance.Abilities.OnAbilityChanged -= UpdateAbilitySprite;
     }
 }

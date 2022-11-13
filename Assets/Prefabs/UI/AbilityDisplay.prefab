@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807ad47cad344aa4baf588130f923239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityImage: {fileID: 6000267622065693024}
-  FillImage: {fileID: 6000267623199673423}
+  _abilityImage: {fileID: 6000267622562788558}
+  _fillImage: {fileID: 6000267623199673423}
 --- !u!222 &6000267622065693031
 CanvasRenderer:
   m_ObjectHideFlags: 0
