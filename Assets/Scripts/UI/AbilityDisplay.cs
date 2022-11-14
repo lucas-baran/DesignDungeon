@@ -8,7 +8,7 @@ public sealed class AbilityDisplay : MonoBehaviour
     [SerializeField] private Image _abilityImage = null;
     [SerializeField] private Image _fillImage = null;
 
-    private EAbilityCategory _abilityCategory = EAbilityCategory.Normal;
+    private EAbilityCategory _abilityCategory = EAbilityCategory.Weapon;
 
     // -- PROPERTIES
 

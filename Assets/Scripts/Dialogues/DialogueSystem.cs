@@ -21,6 +21,7 @@ public sealed class DialogueSystem : MonoBehaviour
 
     private DialogueBox _displayedBox = null;
     private bool _currentEntryFinished = false;
+    private bool _nextDialogueInputPressed = false;
     private WaitUntil _waitUntilCanGoToNextEntry = null;
     private Coroutine _writeDialogueCoroutine = null;
 
@@ -32,7 +33,7 @@ public sealed class DialogueSystem : MonoBehaviour
 
     public delegate void DialogueEndedHandler();
     public event DialogueEndedHandler OnDialogueEnded;
-    
+
     // -- METHODS
 
     public bool StartDialogue( DialogueData dialogue_data )
@@ -59,6 +60,7 @@ public sealed class DialogueSystem : MonoBehaviour
         foreach( var dialogue_entry in dialogue_data.DialogueEntryDataList )
         {
             _currentEntryFinished = false;
+            _nextDialogueInputPressed = false;
 
             StartDialogueEntry( dialogue_entry );
 
@@ -76,6 +78,7 @@ public sealed class DialogueSystem : MonoBehaviour
         }
 
         _currentEntryFinished = false;
+        _nextDialogueInputPressed = false;
         _writeDialogueCoroutine = null;
 
         OnDialogueEnded?.Invoke();
@@ -94,11 +97,19 @@ public sealed class DialogueSystem : MonoBehaviour
         _currentEntryFinished = true;
     }
 
+    private void PlayerInput_OnNextDialogueButtonDown()
+    {
+        if( _currentEntryFinished )
+        {
+            _nextDialogueInputPressed = true;
+        }
+    }
+
     // -- UNITY
 
     private void Awake()
     {
-        if( Instance  == null )
+        if( Instance == null )
         {
             Instance = this;
         }
@@ -116,11 +127,18 @@ public sealed class DialogueSystem : MonoBehaviour
             dialogue_box_data.DialogueBox.OnDialogeEntryEnded += DialogueBox_OnDialogeEntryFinished;
         }
 
-        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && Player.Instance.Input.NextDialogueDown );
+        _waitUntilCanGoToNextEntry = new WaitUntil( () => _currentEntryFinished && _nextDialogueInputPressed );
+    }
+
+    private void Start()
+    {
+        Player.Instance.Input.OnNextDialogueDown += PlayerInput_OnNextDialogueButtonDown;
     }
 
     private void OnDestroy()
     {
+        Player.Instance.Input.OnNextDialogueDown -= PlayerInput_OnNextDialogueButtonDown;
+
         foreach( var dialogue_box_data in _dialogueBoxes )
         {
             dialogue_box_data.DialogueBox.OnDialogeEntryEnded -= DialogueBox_OnDialogeEntryFinished;

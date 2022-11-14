@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6ef8d14a1c17144be896f0b2e856da, type: 3}
-  m_Name: SwordAttack
+  m_Script: {fileID: 11500000, guid: da2894fb9deeae44cbfabf924e795e49, type: 3}
+  m_Name: FireWand_Fireball
   m_EditorClassIdentifier: 
-  _name: Sword slash
+  _name: Fireball
+  _description: 
   _category: 0
   _activeTime: 0
-  _cooldown: 1
+  _cooldown: 2
   _sprite: {fileID: 0}
   _damage: 5

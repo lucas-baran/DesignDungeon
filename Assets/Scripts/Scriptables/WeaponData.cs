@@ -5,7 +5,7 @@ public sealed class WeaponData : ScriptableObject
 {
     // -- FIELDS
 
-    [SerializeField] private string _name = "Skill";
+    [SerializeField] private string _name = "Weapon";
     [SerializeField, Multiline] private string _description = null;
     [SerializeField] private Sprite _sprite = null;
     [SerializeField] private AbilityData _effectiveAbility = null;

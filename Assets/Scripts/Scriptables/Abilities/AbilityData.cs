@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum EAbilityCategory
 {
-    Normal,
+    Weapon,
     Special,
     Movement,
     Potion,
@@ -14,7 +14,7 @@ public abstract class AbilityData : ScriptableObject
 
     [SerializeField] private string _name = "Skill";
     [SerializeField, Multiline] private string _description = null;
-    [SerializeField] private EAbilityCategory _category = EAbilityCategory.Normal;
+    [SerializeField] private EAbilityCategory _category = EAbilityCategory.Weapon;
     [SerializeField] private float _activeTime = 2f;
     [SerializeField] private float _cooldown = 2f;
     [SerializeField] private Sprite _sprite = null;

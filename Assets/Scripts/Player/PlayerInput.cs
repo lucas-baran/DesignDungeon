@@ -7,11 +7,11 @@ public sealed class PlayerInput : MonoBehaviour
     private const string HorizontalAxisName = "Horizontal";
     private const string VerticalAxisName = "Vertical";
     private const string NextDialogueName = "NextDialogue";
-    private const string ToggleSkillTreeName = "ToggleSkillTree";
-    private const string PerformNormalAbilityName = "PerformNormalAbility";
+    private const string PerformWeaponAbilityName = "PerformWeaponAbility";
     private const string PerformMovementAbilityName = "PerformMovementAbility";
     private const string PerformSpecialAbilityName = "PerformSpecialAbility";
     private const string PerformPotionAbilityName = "PerformPotionAbility";
+    private const string PickObjectName = "PickObject";
 
     // -- FIELDS
 
@@ -21,19 +21,19 @@ public sealed class PlayerInput : MonoBehaviour
 
     public Vector2 MousePosition { get; private set; }
     public Vector2 AxisInput { get; private set; }
-    public bool NextDialogueDown { get; private set; }
-    public bool WeaponAbilityDown { get; private set; }
     public bool InputLocked => _lockCount > 0;
 
     // -- EVENTS
 
+    public delegate void InputLockedHandler();
     public delegate void ButtonDownHandler();
-
-    public event ButtonDownHandler OnInputLocked;
-    public event ButtonDownHandler OnNextDialogueButtonDown;
-    public event ButtonDownHandler OnToggleSkillTreeButtonDown;
-
     public delegate void AbilityDownHandler( EAbilityCategory ability_category );
+
+    public event InputLockedHandler OnInputLocked;
+
+    public event ButtonDownHandler OnNextDialogueDown;
+    public event ButtonDownHandler OnPickObjectDown;
+
     public event AbilityDownHandler OnAbilityDown;
 
     // -- METHODS
@@ -41,8 +41,6 @@ public sealed class PlayerInput : MonoBehaviour
     public void Lock()
     {
         _lockCount++;
-
-        WeaponAbilityDown = false;
 
         if( _lockCount == 1 )
         {
@@ -59,10 +57,9 @@ public sealed class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        NextDialogueDown = Input.GetButtonDown( NextDialogueName );
-        if( NextDialogueDown )
+        if( Input.GetButtonDown( NextDialogueName ) )
         {
-            OnNextDialogueButtonDown?.Invoke();
+            OnNextDialogueDown?.Invoke();
         }
 
         if( InputLocked )
@@ -78,14 +75,14 @@ public sealed class PlayerInput : MonoBehaviour
             Input.GetAxisRaw( VerticalAxisName )
         ).normalized;
 
-        if( Input.GetButtonDown( ToggleSkillTreeName ) )
+        if( Input.GetButtonDown( PickObjectName ) )
         {
-            OnToggleSkillTreeButtonDown?.Invoke();
+            OnPickObjectDown?.Invoke();
         }
 
-        if( Input.GetButtonDown( PerformNormalAbilityName ) )
+        if( Input.GetButtonDown( PerformWeaponAbilityName ) )
         {
-            OnAbilityDown?.Invoke( EAbilityCategory.Normal );
+            OnAbilityDown?.Invoke( EAbilityCategory.Weapon );
         }
 
         if( Input.GetButtonDown( PerformMovementAbilityName ) )
