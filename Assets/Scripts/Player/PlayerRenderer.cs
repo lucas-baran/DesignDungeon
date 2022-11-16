@@ -11,7 +11,7 @@ public sealed class PlayerRenderer : MonoBehaviour
 
     private void UpdateFacingDirection()
     {
-        bool flip = (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).x < 0;
+        bool flip = Player.Instance.Input.MouseDirectionFromPlayer.x < 0;
 
         if( _playerRenderer.flipX != flip )
         {

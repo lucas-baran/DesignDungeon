@@ -20,6 +20,7 @@ public sealed class PlayerInput : MonoBehaviour
     // -- PROPERTIES
 
     public Vector2 MousePosition { get; private set; }
+    public Vector2 MouseDirectionFromPlayer { get; private set; }
     public Vector2 AxisInput { get; private set; }
     public bool InputLocked => _lockCount > 0;
 
@@ -68,6 +69,7 @@ public sealed class PlayerInput : MonoBehaviour
         }
 
         MousePosition = Player.Instance.Camera.ScreenToWorldPoint( Input.mousePosition );
+        MouseDirectionFromPlayer = (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).normalized;
 
         AxisInput = new Vector2
         (

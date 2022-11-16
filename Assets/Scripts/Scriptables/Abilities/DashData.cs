@@ -26,7 +26,7 @@ public sealed class DashData : AbilityData
 
         Vector2 dash_direction = GameManager.Instance.GameSettings.DashDirection switch
         {
-            EDashDirectionSetting.Mouse => (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).normalized,
+            EDashDirectionSetting.Mouse => Player.Instance.Input.MouseDirectionFromPlayer,
             EDashDirectionSetting.Movement => Player.Instance.Input.AxisInput,
             _ => throw new System.NotImplementedException(),
         };
