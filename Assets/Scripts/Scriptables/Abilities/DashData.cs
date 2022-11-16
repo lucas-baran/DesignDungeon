@@ -17,14 +17,19 @@ public sealed class DashData : AbilityData
 
     public override void Activate()
     {
-        Vector2 dash_direction = Player.Instance.Input.AxisInput;
-
         Player.Instance.Input.Lock();
 
         if( _invincibility )
         {
             Player.Instance.Life.Invincible = true;
         }
+
+        Vector2 dash_direction = GameManager.Instance.GameSettings.DashDirection switch
+        {
+            EDashDirectionSetting.Mouse => (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).normalized,
+            EDashDirectionSetting.Movement => Player.Instance.Input.AxisInput,
+            _ => throw new System.NotImplementedException(),
+        };
 
         Player.Instance.Controller.AddForce( _dashVelocity * dash_direction, ForceMode2D.Impulse );
     }

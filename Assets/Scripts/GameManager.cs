@@ -9,12 +9,16 @@ public sealed class GameManager : MonoBehaviour
 
     [SerializeField] private RoomData SpawnRoom = null;
 
+    private GameSettings _gameSettings = new GameSettings();
+
     private bool _isPaused = false;
     private List<string> _loadedAndLoadingScenes = new List<string>();
 
     // -- PROPERTIES
 
     public static GameManager Instance { get; private set; }
+
+    public GameSettings GameSettings => _gameSettings;
 
     public bool IsPaused
     {

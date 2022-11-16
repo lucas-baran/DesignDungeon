@@ -6,6 +6,7 @@ public sealed class Player : MonoBehaviour
 
     public static Player Instance { get; private set; }
 
+    public Transform Transform { get; private set; }
     public Camera Camera { get; private set; }
     public PlayerInput Input { get; private set; }
     public PlayerController Controller { get; private set; }
@@ -41,6 +42,7 @@ public sealed class Player : MonoBehaviour
             return;
         }
 
+        Transform = transform;
         Camera = Camera.main;
         Input = GetComponent<PlayerInput>();
         Controller = GetComponent<PlayerController>();
