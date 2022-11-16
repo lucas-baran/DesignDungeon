@@ -24,14 +24,15 @@ public sealed class PickeableWeapon : MonoBehaviour, IInteractableObject
 
     public void Interact()
     {
+        var player_weapon = Player.Instance.Weapon.SelectedWeapon;
         Player.Instance.Weapon.SelectedWeapon = _weaponData;
+        WeaponData = player_weapon;
     }
 
     // -- UNITY
 
     private void Awake()
     {
-        _weaponRenderer = GetComponent<SpriteRenderer>();
         Transform = transform;
     }
 
