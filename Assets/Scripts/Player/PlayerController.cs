@@ -86,7 +86,7 @@ public sealed class PlayerController : MonoBehaviour
         _closestInteractableObject.Interact();
     }
 
-    private void Instance_OnPauseStateChanged( bool is_paused )
+    private void GameManager_OnPauseStateChanged( bool is_paused )
     {
         ResetVelocity();
     }
@@ -102,7 +102,7 @@ public sealed class PlayerController : MonoBehaviour
     {
         Player.Instance.Input.OnInputLocked += PlayerInput_OnInputLocked;
         Player.Instance.Input.OnPickObjectDown += PlayerInput_OnPickObjectDown;
-        GameManager.Instance.OnPauseStateChanged += Instance_OnPauseStateChanged;
+        GameManager.Instance.OnPauseStateChanged += GameManager_OnPauseStateChanged;
     }
 
     private void Update()
@@ -145,6 +145,6 @@ public sealed class PlayerController : MonoBehaviour
     {
         Player.Instance.Input.OnInputLocked -= PlayerInput_OnInputLocked;
         Player.Instance.Input.OnPickObjectDown -= PlayerInput_OnPickObjectDown;
-        GameManager.Instance.OnPauseStateChanged -= Instance_OnPauseStateChanged;
+        GameManager.Instance.OnPauseStateChanged -= GameManager_OnPauseStateChanged;
     }
 }

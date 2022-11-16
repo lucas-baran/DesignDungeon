@@ -54,7 +54,24 @@ public sealed class PlayerInput : MonoBehaviour
         _lockCount = Mathf.Max( 0, _lockCount - 1 );
     }
 
+    private void GameManager_OnPauseStateChanged( bool is_paused )
+    {
+        if( is_paused )
+        {
+            Lock();
+        }
+        else
+        {
+            Unlock();
+        }
+    }
+
     // -- UNITY
+
+    private void Start()
+    {
+        GameManager.Instance.OnPauseStateChanged += GameManager_OnPauseStateChanged;
+    }
 
     private void Update()
     {
@@ -101,5 +118,10 @@ public sealed class PlayerInput : MonoBehaviour
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Potion );
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnPauseStateChanged -= GameManager_OnPauseStateChanged;
     }
 }
