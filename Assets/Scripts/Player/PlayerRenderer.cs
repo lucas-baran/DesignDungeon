@@ -4,14 +4,19 @@ public sealed class PlayerRenderer : MonoBehaviour
 {
     // -- FIELDS
 
-    [SerializeField] private SpriteRenderer _canInteractRenderer = null;
+    [SerializeField] private SpriteRenderer _playerRenderer = null;
     [SerializeField] private SpriteRenderer _weaponRenderer = null;
 
     // -- METHODS
 
-    private void PlayerController_OnCanInteractStateChanged( bool can_interact )
+    private void UpdateFacingDirection()
     {
-        _canInteractRenderer.enabled = can_interact;
+        bool flip = (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).x < 0;
+
+        if( _playerRenderer.flipX != flip )
+        {
+            _playerRenderer.flipX = flip;
+        }
     }
 
     private void Weapon_OnWeaponChanged( WeaponData new_weapon_data )
@@ -21,22 +26,20 @@ public sealed class PlayerRenderer : MonoBehaviour
 
     // -- UNITY
 
-    private void Awake()
-    {
-        _canInteractRenderer.enabled = false;
-    }
-
     private void Start()
     {
         _weaponRenderer.sprite = Player.Instance.Weapon.SelectedWeapon.Sprite;
 
-        Player.Instance.Controller.OnCanInteractStateChanged += PlayerController_OnCanInteractStateChanged;
         Player.Instance.Weapon.OnWeaponChanged += Weapon_OnWeaponChanged;
+    }
+
+    private void Update()
+    {
+        UpdateFacingDirection();
     }
 
     private void OnDestroy()
     {
-        Player.Instance.Controller.OnCanInteractStateChanged -= PlayerController_OnCanInteractStateChanged;
         Player.Instance.Weapon.OnWeaponChanged -= Weapon_OnWeaponChanged;
     }
 }

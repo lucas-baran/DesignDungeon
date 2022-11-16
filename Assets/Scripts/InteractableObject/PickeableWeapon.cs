@@ -7,6 +7,8 @@ public sealed class PickeableWeapon : MonoBehaviour, IInteractableObject
     [SerializeField] private SpriteRenderer _weaponRenderer = null;
     [SerializeField] private WeaponData _weaponData = null;
 
+    private readonly int _ReplacementFactorId = Shader.PropertyToID( "_ReplacementFactor" );
+
     // -- PROPERTIES
 
     public Transform Transform { get; private set; }
@@ -22,6 +24,11 @@ public sealed class PickeableWeapon : MonoBehaviour, IInteractableObject
 
     // -- METHODS
 
+    public void SetInteractable( bool can_interact )
+    {
+        _weaponRenderer.material.SetFloat( _ReplacementFactorId, can_interact ? 1f : 0f );
+    }
+
     public void Interact()
     {
         var player_weapon = Player.Instance.Weapon.SelectedWeapon;
@@ -34,6 +41,8 @@ public sealed class PickeableWeapon : MonoBehaviour, IInteractableObject
     private void Awake()
     {
         Transform = transform;
+
+        SetInteractable( false );
     }
 
 #if UNITY_EDITOR

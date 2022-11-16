@@ -9,6 +9,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidbody2D = null;
     private List<Collider2D> _interactableObjectColliders = new List<Collider2D>();
+    private IInteractableObject _closestInteractableObject = null;
 
     // -- EVENTS
 
@@ -27,15 +28,16 @@ public sealed class PlayerController : MonoBehaviour
         _rigidbody2D.AddForce( force, mode );
     }
 
-    private void PlayerInput_OnInputLocked()
-    {
-        ResetVelocity();
-    }
-
-    private void PlayerInput_OnPickObjectDown()
+    private void UpdateClosestInteractable()
     {
         if( _interactableObjectColliders.Count == 0 )
         {
+            if( _closestInteractableObject != null )
+            {
+                _closestInteractableObject.SetInteractable( false );
+                _closestInteractableObject = null;
+            }
+
             return;
         }
 
@@ -53,8 +55,35 @@ public sealed class PlayerController : MonoBehaviour
             }
         }
 
-        var closest_object = closest_collider.GetComponent<IInteractableObject>();
-        closest_object.Interact();
+        var closest_interactable = closest_collider.GetComponent<IInteractableObject>();
+
+        if( closest_interactable == _closestInteractableObject )
+        {
+            return;
+        }
+
+        if( _closestInteractableObject != null )
+        {
+            _closestInteractableObject.SetInteractable( false );
+        }
+
+        _closestInteractableObject = closest_interactable;
+        _closestInteractableObject.SetInteractable( true );
+    }
+
+    private void PlayerInput_OnInputLocked()
+    {
+        ResetVelocity();
+    }
+
+    private void PlayerInput_OnPickObjectDown()
+    {
+        if( _interactableObjectColliders.Count == 0 )
+        {
+            return;
+        }
+
+        _closestInteractableObject.Interact();
     }
 
     private void Instance_OnPauseStateChanged( bool is_paused )
@@ -78,6 +107,8 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        UpdateClosestInteractable();
+
         if( Player.Instance.Input.InputLocked )
         {
             return;
