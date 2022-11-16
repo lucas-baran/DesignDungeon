@@ -8,7 +8,7 @@ public sealed class GameSettings
 {
     // -- FIELDS
 
-    private EDashDirectionSetting _dashDirection = EDashDirectionSetting.Mouse;
+    private EDashDirectionSetting _dashDirection = EDashDirectionSetting.Movement;
 
     // -- PROPERTIES
 
