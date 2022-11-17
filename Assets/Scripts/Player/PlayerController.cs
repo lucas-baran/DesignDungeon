@@ -6,6 +6,7 @@ public sealed class PlayerController : MonoBehaviour
     // -- FIELDS
 
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private Transform _weaponPivot = null;
 
     private Rigidbody2D _rigidbody2D = null;
     private List<Collider2D> _interactableObjectColliders = new List<Collider2D>();
@@ -71,6 +72,26 @@ public sealed class PlayerController : MonoBehaviour
         _closestInteractableObject.SetInteractable( true );
     }
 
+    private void UpdateWeaponPivot()
+    {
+        Vector3 weapon_pivot_rotation = Vector3.zero;
+        Vector3 weapon_pivot_right_direction = Vector3.right;
+        Vector3 weapon_pivot_forward_direction = Vector3.forward;
+        float weapon_pivot_y_rotation = 0f;
+
+        if( Player.Instance.Input.MouseDirectionFromPlayer.x < 0 )
+        {
+            weapon_pivot_y_rotation = 180f;
+            weapon_pivot_right_direction = Vector3.left;
+            weapon_pivot_forward_direction = Vector3.back;
+        }
+
+        weapon_pivot_rotation.y = weapon_pivot_y_rotation;
+        weapon_pivot_rotation.z = Vector3.SignedAngle( weapon_pivot_right_direction, Player.Instance.Input.MouseDirectionFromPlayer, weapon_pivot_forward_direction );
+
+        _weaponPivot.rotation = Quaternion.Euler( weapon_pivot_rotation );
+    }
+
     private void PlayerInput_OnInputLocked()
     {
         ResetVelocity();
@@ -108,6 +129,7 @@ public sealed class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateClosestInteractable();
+        UpdateWeaponPivot();
 
         if( Player.Instance.Input.InputLocked )
         {
