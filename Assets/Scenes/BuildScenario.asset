@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf7f48f1b14c9d489ef0a1688a6b18a, type: 3}
-  m_Name: Room2
+  m_Script: {fileID: 11500000, guid: 58650994c7a22e348aceb469c31530d1, type: 3}
+  m_Name: BuildScenario
   m_EditorClassIdentifier: 
-  _scene:
-    _buildIndex: 5
-  _doors:
-  - {fileID: 11400000, guid: c944c1f2599baa04a9a9246cc5fe361a, type: 2}
-  - {fileID: 11400000, guid: ca7a3dcf53fbbc84a822c29dd64809a5, type: 2}
+  _scenes:
+  - _buildIndex: 0
+  - _buildIndex: 1
+  - _buildIndex: 2

@@ -15,15 +15,19 @@ public sealed class Room : MonoBehaviour
 
     // -- METHODS
 
-    private void EnterDoor( RoomDoor door )
+    public Vector3 GetCameraPosition()
     {
-        Player.Instance.Camera.transform.position = new Vector3
+        return new Vector3
         (
-            door.DoorData.LinkedRoomData.Room._cameraPoint.position.x,
-            door.DoorData.LinkedRoomData.Room._cameraPoint.position.y,
+            _cameraPoint.position.x,
+            _cameraPoint.position.y,
             Player.Instance.Camera.transform.position.z
         );
+    }
 
+    private void EnterDoor( RoomDoor door )
+    {
+        Player.Instance.Camera.transform.position = door.DoorData.LinkedRoomData.Room.GetCameraPosition();
         Player.Instance.Teleport( door.DoorData.LinkedDoorData.Door.EntrancePosition );
 
         LoadNeighbourRooms();
@@ -33,7 +37,7 @@ public sealed class Room : MonoBehaviour
 
     private IEnumerator EnterDoorRoutine( RoomDoor door )
     {
-        while( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneName ) )
+        while( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneBuildIndex ) )
         {
             yield return null;
         }
@@ -45,13 +49,13 @@ public sealed class Room : MonoBehaviour
     {
         foreach( var door_data in _roomData.Doors )
         {
-            GameManager.Instance.LoadScene( door_data.LinkedRoomData.SceneName, out _ );
+            GameManager.Instance.LoadScene( door_data.LinkedRoomData.SceneBuildIndex, out _ );
         }
     }
 
     private void DoorData_OnDoorEnter( RoomDoor door )
     {
-        if( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneName ) )
+        if( !GameManager.Instance.IsSceneLoadedOrLoading( door.DoorData.LinkedRoomData.SceneBuildIndex ) )
         {
             StartCoroutine( EnterDoorRoutine( door ) );
         }

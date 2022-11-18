@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf7f48f1b14c9d489ef0a1688a6b18a, type: 3}
   m_Name: Room1
   m_EditorClassIdentifier: 
+  _scene:
+    _buildIndex: 4
   _doors:
   - {fileID: 11400000, guid: b235746ab82dc6749ae0d65add81519a, type: 2}
   - {fileID: 11400000, guid: fce6bdc351e96124884cb2b6e86978c8, type: 2}

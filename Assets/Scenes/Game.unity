@@ -236,3 +236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnRoom: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
+  EditorScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
+  DevelopmentBuildScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
+  ReleaseBuildScenario: {fileID: 11400000, guid: 8a678bf3ac0babc4fb5c85513d8c1701, type: 2}

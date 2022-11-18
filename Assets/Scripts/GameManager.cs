@@ -9,10 +9,15 @@ public sealed class GameManager : MonoBehaviour
 
     [SerializeField] private RoomData SpawnRoom = null;
 
+    [Header( "Scenarios" )]
+    [SerializeField] private Scenario EditorScenario = null;
+    [SerializeField] private Scenario DevelopmentBuildScenario = null;
+    [SerializeField] private Scenario ReleaseBuildScenario = null;
+
     private GameSettings _gameSettings = new GameSettings();
 
     private bool _isPaused = false;
-    private List<string> _loadedAndLoadingScenes = new List<string>();
+    private List<int> _loadedAndLoadingScenes = new List<int>();
 
     // -- PROPERTIES
 
@@ -52,30 +57,16 @@ public sealed class GameManager : MonoBehaviour
 
     // -- METHODS
 
-    private IEnumerator LoadSpawnRoom()
+    public bool IsSceneLoadedOrLoading( int build_index )
     {
-        if( LoadScene( SpawnRoom.SceneName, out AsyncOperation scene_load ) )
-        {
-            while( !scene_load.isDone )
-            {
-                yield return null;
-            }
-        }
-
-        Player.Instance.Teleport( SpawnRoom.Room.SpawnPosition );
-        SpawnRoom.Room.LoadNeighbourRooms();
+        return _loadedAndLoadingScenes.Contains( build_index );
     }
 
-    public bool IsSceneLoadedOrLoading( string scene_name )
+    public bool LoadScene( int build_index, out AsyncOperation scene_load )
     {
-        return _loadedAndLoadingScenes.Contains( scene_name );
-    }
+        var scene = SceneManager.GetSceneByBuildIndex( build_index );
 
-    public bool LoadScene( string scene_name, out AsyncOperation scene_load )
-    {
-        var scene = SceneManager.GetSceneByName( scene_name );
-
-        if( _loadedAndLoadingScenes.Contains( scene_name ) )
+        if( _loadedAndLoadingScenes.Contains( build_index ) )
         {
             scene_load = null;
 
@@ -84,9 +75,9 @@ public sealed class GameManager : MonoBehaviour
 
         if( scene.isLoaded )
         {
-            if( !_loadedAndLoadingScenes.Contains( scene_name ) )
+            if( !_loadedAndLoadingScenes.Contains( build_index ) )
             {
-                _loadedAndLoadingScenes.Add( scene_name );
+                _loadedAndLoadingScenes.Add( build_index );
             }
 
             scene_load = null;
@@ -94,9 +85,9 @@ public sealed class GameManager : MonoBehaviour
             return false;
         }
 
-        _loadedAndLoadingScenes.Add( scene_name );
+        _loadedAndLoadingScenes.Add( build_index );
 
-        scene_load = SceneManager.LoadSceneAsync( scene_name, LoadSceneMode.Additive );
+        scene_load = SceneManager.LoadSceneAsync( build_index, LoadSceneMode.Additive );
 
         return true;
     }
@@ -118,12 +109,41 @@ public sealed class GameManager : MonoBehaviour
 
         for( int scene_index = 0; scene_index < SceneManager.sceneCount; scene_index++ )
         {
-            _loadedAndLoadingScenes.Add( SceneManager.GetSceneAt( scene_index ).name );
+            _loadedAndLoadingScenes.Add( SceneManager.GetSceneAt( scene_index ).buildIndex );
         }
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
-        StartCoroutine( LoadSpawnRoom() );
+#if UNITY_EDITOR
+        Scenario load_scenario = EditorScenario;
+#elif DEVELOPMENT_BUILD
+        Scenario load_scenario = DevelopmentBuildScenario;
+#else
+        Scenario load_scenario = ReleaseBuildScenario;
+#endif
+
+        foreach( var scene_data in load_scenario.Scenes )
+        {
+            if( LoadScene( scene_data.BuildIndex, out AsyncOperation scenario_scene_load_operation ) )
+            {
+                while( !scenario_scene_load_operation.isDone )
+                {
+                    yield return null;
+                }
+            }
+        }
+
+        if( LoadScene( SpawnRoom.SceneBuildIndex, out AsyncOperation spawn_room_scene_load_operation ) )
+        {
+            while( !spawn_room_scene_load_operation.isDone )
+            {
+                yield return null;
+            }
+        }
+
+        Player.Instance.Camera.transform.position = SpawnRoom.Room.GetCameraPosition();
+        Player.Instance.Teleport( SpawnRoom.Room.SpawnPosition );
+        SpawnRoom.Room.LoadNeighbourRooms();
     }
 }

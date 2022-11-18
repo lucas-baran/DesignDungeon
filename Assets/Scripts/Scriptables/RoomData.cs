@@ -5,11 +5,12 @@ public sealed class RoomData : ScriptableObject
 {
     // -- FIELDS
 
+    [SerializeField] private SceneData _scene = default;
     [SerializeField] private DoorData[] _doors = null;
 
     // -- PROPERTIES
 
     public Room Room { get; set; }
-    public string SceneName => name;
+    public int SceneBuildIndex => _scene.BuildIndex;
     public DoorData[] Doors => _doors;
 }

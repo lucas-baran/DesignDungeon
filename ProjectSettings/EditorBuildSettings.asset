@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/UI.unity
     guid: 25e358803bda9e94b96da38a9774b1af
   - enabled: 1
+    path: Assets/Scenes/DebugCheat.unity
+    guid: c0b800aadb9829840b7e6c7e68985280
+  - enabled: 1
     path: Assets/Scenes/Rooms/Room1.unity
     guid: de100d4d729c15d4eb73b232ea40f7a1
   - enabled: 1
