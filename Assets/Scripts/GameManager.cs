@@ -62,13 +62,13 @@ public sealed class GameManager : MonoBehaviour
         return _loadedAndLoadingScenes.Contains( build_index );
     }
 
-    public bool LoadScene( int build_index, out AsyncOperation scene_load )
+    public bool LoadScene( int build_index, out AsyncOperation scene_load_operation )
     {
         var scene = SceneManager.GetSceneByBuildIndex( build_index );
 
         if( _loadedAndLoadingScenes.Contains( build_index ) )
         {
-            scene_load = null;
+            scene_load_operation = null;
 
             return false;
         }
@@ -80,14 +80,14 @@ public sealed class GameManager : MonoBehaviour
                 _loadedAndLoadingScenes.Add( build_index );
             }
 
-            scene_load = null;
+            scene_load_operation = null;
 
             return false;
         }
 
         _loadedAndLoadingScenes.Add( build_index );
 
-        scene_load = SceneManager.LoadSceneAsync( build_index, LoadSceneMode.Additive );
+        scene_load_operation = SceneManager.LoadSceneAsync( build_index, LoadSceneMode.Additive );
 
         return true;
     }
