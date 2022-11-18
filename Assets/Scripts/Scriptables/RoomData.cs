@@ -6,7 +6,7 @@ public sealed class RoomData : ScriptableObject
     // -- FIELDS
 
     [SerializeField] private SceneData _scene = default;
-    [SerializeField] private DoorData[] _doors = null;
+    [SerializeField, NonReorderable] private DoorData[] _doors = null;
 
     // -- PROPERTIES
 
