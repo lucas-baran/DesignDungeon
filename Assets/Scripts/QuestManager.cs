@@ -7,68 +7,12 @@ public enum EQuestStatus
     Success = 1,
 }
 
-public class Quest
-{
-    // -- FIELDS
-
-    private readonly QuestData _questData = null;
-
-    private int _currentStepIndex = 0;
-
-    // -- PROPERTIES
-
-    public QuestData QuestData => _questData;
-
-    // -- EVENTS
-
-    public delegate void QuestEndedHandler( Quest quest, EQuestStatus quest_status );
-    public event QuestEndedHandler OnQuestEnded;
-
-    // -- CONSTRUCTORS
-
-    public Quest( QuestData quest_data )
-    {
-        _questData = quest_data;
-    }
-
-    // -- METHODS
-
-    private void StartCurrentStep()
-    {
-        var quest_step = _questData.Steps[ _currentStepIndex ];
-
-        quest_step.OnStepEnded += CurrentQuestStep_OnStepEnded;
-        quest_step.Start();
-    }
-
-    private void CurrentQuestStep_OnStepEnded( EQuestStatus quest_status )
-    {
-        if( quest_status  == EQuestStatus.Failure)
-        {
-            OnQuestEnded?.Invoke( this, EQuestStatus.Failure );
-
-            return;
-        }
-
-        _questData.Steps[ _currentStepIndex ].OnStepEnded -= CurrentQuestStep_OnStepEnded;
-        _currentStepIndex++;
-
-        if( _currentStepIndex == _questData.Steps.Length )
-        {
-            OnQuestEnded?.Invoke( this, EQuestStatus.Success );
-
-            return;
-        }
-
-        StartCurrentStep();
-    }
-}
-
 public sealed class QuestManager : MonoBehaviour
 {
     // -- FIELDS
 
-    private List<Quest> _activeQuests = new List<Quest>();
+    private List<QuestData> _finishedQuests = new List<QuestData>();
+    private List<QuestData> _activeQuests = new List<QuestData>();
 
     // -- PROPERTIES
 
@@ -78,30 +22,31 @@ public sealed class QuestManager : MonoBehaviour
 
     public delegate void QuestEndedHandler( QuestData quest_data, EQuestStatus quest_status );
     public event QuestEndedHandler OnQuestEnded;
-    
+
     // -- METHODS
 
     public void StartQuest( QuestData quest_data )
     {
-        if( _activeQuests.Exists( ( quest ) => quest.QuestData == quest_data ) )
+        if( _activeQuests.Contains( quest_data ) || _finishedQuests.Contains( quest_data ) )
         {
             Debug.LogError( $"Quest {quest_data.Name} has already been started" );
 
             return;
         }
 
-        var quest = new Quest( quest_data );
-        _activeQuests.Add( quest );
+        _activeQuests.Add( quest_data );
 
-        quest.OnQuestEnded += Quest_OnQuestEnded;
+        quest_data.OnQuestEnded += Quest_OnQuestEnded;
+        quest_data.Start();
     }
 
-    private void Quest_OnQuestEnded( Quest quest, EQuestStatus quest_status )
+    private void Quest_OnQuestEnded( QuestData quest_data, EQuestStatus quest_status )
     {
-        quest.OnQuestEnded -= Quest_OnQuestEnded;
-        _activeQuests.Remove( quest );
+        quest_data.OnQuestEnded -= Quest_OnQuestEnded;
+        _activeQuests.Remove( quest_data );
+        _finishedQuests.Add( quest_data );
 
-        OnQuestEnded?.Invoke( quest.QuestData, quest_status );
+        OnQuestEnded?.Invoke( quest_data, quest_status );
     }
 
     // -- UNITY

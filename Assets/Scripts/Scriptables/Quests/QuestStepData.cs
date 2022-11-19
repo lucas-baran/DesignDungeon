@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[CreateAssetMenu( fileName = "QuestStep", menuName = "Quests/QuestStep" )]
 public abstract class QuestStepData : ScriptableObject
 {
     // -- FIELDS
