@@ -42,7 +42,7 @@ public static class HierarchyWindowHeader
 
     private static readonly HeaderPattern[] _headerPatterns = new HeaderPattern[]
     {
-        new HeaderPattern(string.Empty, "Manager", new Color(0.4f, 0.65f, 0.2f, 0.15f), EEdge.Everything, 1f),
+        new HeaderPattern(string.Empty, "Manager", new Color(0.4f, 0.65f, 0.2f, 0.15f), EEdge.Top | EEdge.Bottom, 1f),
     };
 
     private static readonly EEdge[] Edges = new EEdge[ 4 ]
