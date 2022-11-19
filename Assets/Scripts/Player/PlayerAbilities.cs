@@ -5,14 +5,13 @@ public class AbilityUsage
 {
     // -- FIELDS
 
-    public AbilityData AbilityData = null;
-
     private float _activeTimer = 0f;
     private float _cooldownTimer = 0f;
     private bool _isActive = false;
 
     // -- PROPERTIES
 
+    public AbilityData AbilityData { get; set; }
     public bool IsActive => _isActive;
     public float AbilityCooldown01 => Mathf.Max( 0f, _cooldownTimer ) / AbilityData.Cooldown;
     public bool CanActivate => !IsActive && !Player.Instance.Input.InputLocked && _cooldownTimer <= 0f && AbilityData.CanActivate();
