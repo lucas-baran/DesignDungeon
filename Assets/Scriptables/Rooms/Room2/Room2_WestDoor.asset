@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Room2_WestDoor
   m_EditorClassIdentifier: 
   _linkedRoomData: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
-  _selectedLinkedDoorDataIndex: 0
+  _linkedDoorData: {fileID: 11400000, guid: b235746ab82dc6749ae0d65add81519a, type: 2}

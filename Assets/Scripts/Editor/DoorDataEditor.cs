@@ -6,7 +6,7 @@ public sealed class DoorDataEditor : Editor
     // -- FIELDS
 
     private SerializedProperty _linkedRoomDataProperty = null;
-    private SerializedProperty _selectedLinkedDoorDataIndexProperty = null;
+    private SerializedProperty _linkedDoorDataProperty = null;
 
     private RoomData[] _roomDataInstances = null;
 
@@ -15,7 +15,7 @@ public sealed class DoorDataEditor : Editor
     private void OnEnable()
     {
         _linkedRoomDataProperty = serializedObject.FindProperty( "_linkedRoomData" );
-        _selectedLinkedDoorDataIndexProperty = serializedObject.FindProperty( "_selectedLinkedDoorDataIndex" );
+        _linkedDoorDataProperty = serializedObject.FindProperty( "_linkedDoorData" );
 
         _roomDataInstances = Extensions.GetAllInstances<RoomData>();
     }
@@ -30,23 +30,23 @@ public sealed class DoorDataEditor : Editor
         serializedObject.Update();
 
         string[] room_options = new string[ _roomDataInstances.Length ];
-        int seleted_option_index = 0;
+        int seleted_room_option_index = 0;
+        RoomData selected_room_data = (RoomData)_linkedRoomDataProperty.objectReferenceValue;
 
-        for( int room_options_index = 0; room_options_index < room_options.Length; room_options_index++ )
+        for( int room_option_index = 0; room_option_index < room_options.Length; room_option_index++ )
         {
-            RoomData room_data = _roomDataInstances[ room_options_index ];
+            RoomData room_data = _roomDataInstances[ room_option_index ];
+            room_options[ room_option_index ] = room_data.name;
 
-            room_options[ room_options_index ] = room_data.name;
-
-            if( room_data == (RoomData)_linkedRoomDataProperty.objectReferenceValue )
+            if( room_data == selected_room_data )
             {
-                seleted_option_index = room_options_index;
+                seleted_room_option_index = room_option_index;
             }
         }
 
-        seleted_option_index = EditorGUILayout.Popup( "Linked Door Data", seleted_option_index, room_options );
+        seleted_room_option_index = EditorGUILayout.Popup( "Linked Door", seleted_room_option_index, room_options );
 
-        RoomData selected_room_data = _roomDataInstances[ seleted_option_index ];
+        selected_room_data = _roomDataInstances[ seleted_room_option_index ];
         _linkedRoomDataProperty.objectReferenceValue = selected_room_data;
 
         if( selected_room_data != null
@@ -55,14 +55,24 @@ public sealed class DoorDataEditor : Editor
             )
         {
             string[] door_options = new string[ selected_room_data.Doors.Length ];
+            int seleted_door_option_index = 0;
+            DoorData selected_door_data = (DoorData)_linkedDoorDataProperty.objectReferenceValue;
 
-            for( int door_data_index = 0; door_data_index < door_options.Length; door_data_index++ )
+            for( int door_option_index = 0; door_option_index < door_options.Length; door_option_index++ )
             {
-                DoorData door_data = selected_room_data.Doors[ door_data_index ];
-                door_options[ door_data_index ] = door_data.name;
+                DoorData door_data = selected_room_data.Doors[ door_option_index ];
+                door_options[ door_option_index ] = door_data.name;
+
+                if( door_data == selected_door_data )
+                {
+                    seleted_door_option_index = door_option_index;
+                }
             }
 
-            _selectedLinkedDoorDataIndexProperty.intValue = EditorGUILayout.Popup( "Linked Door Data", _selectedLinkedDoorDataIndexProperty.intValue, door_options );
+            seleted_door_option_index = EditorGUILayout.Popup( "Linked Door", seleted_door_option_index, door_options );
+
+            selected_door_data = selected_room_data.Doors[ seleted_door_option_index ];
+            _linkedDoorDataProperty.objectReferenceValue = selected_door_data;
         }
 
         serializedObject.ApplyModifiedProperties();
