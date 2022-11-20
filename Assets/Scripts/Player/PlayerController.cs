@@ -73,11 +73,13 @@ public sealed class PlayerController : MonoBehaviour
         _closestInteractableObject.SetInteractable( true );
     }
 
+    // Animation events
     public void LockWeaponPivot()
     {
         _lockWeaponPivot = true;
     }
 
+    // Animation events
     public void UnlockWeaponPivot()
     {
         _lockWeaponPivot = false;

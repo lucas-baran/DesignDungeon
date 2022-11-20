@@ -18,6 +18,9 @@ public abstract class AbilityData : ScriptableObject
     [SerializeField] private float _activeTime = 2f;
     [SerializeField] private float _cooldown = 2f;
     [SerializeField] private Sprite _sprite = null;
+    [SerializeField] private AbilityEffector _effectorPrefab = null;
+
+    private AbilityEffector _effector = null;
 
     // -- PROPERTIES
 
@@ -28,29 +31,45 @@ public abstract class AbilityData : ScriptableObject
     public float ActiveTime => _activeTime;
     public Sprite Sprite => _sprite;
 
+    protected AbilityEffector Effector
+    {
+        get
+        {
+            if( _effector == null )
+            {
+                _effector = Instantiate( _effectorPrefab, Player.Instance.Transform );
+            }
+
+            return _effector;
+        }
+    }
+
     // -- EVENTS
 
     public delegate void AbilityActivateHandler( AbilityData ability_data );
     public event AbilityActivateHandler OnAbilityActivated;
-    
+
     // -- METHODS
 
-    public virtual bool CanActivate()
+    public bool CanActivate()
     {
-        return true;
+        return Effector.CanActivateEffect( this );
     }
 
     public void Activate()
     {
-        Execute();
+        if( !CanActivate() )
+        {
+            return;
+        }
+
+        Effector.ActivateEffect( this );
 
         OnAbilityActivated?.Invoke( this );
     }
 
-    protected abstract void Execute();
-
-    public virtual void End()
+    public void End()
     {
-
+        Effector.EndEffect( this );
     }
 }
