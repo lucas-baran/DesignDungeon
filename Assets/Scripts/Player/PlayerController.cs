@@ -11,6 +11,7 @@ public sealed class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody2D = null;
     private List<Collider2D> _interactableObjectColliders = new List<Collider2D>();
     private IInteractableObject _closestInteractableObject = null;
+    private bool _lockWeaponPivot = false;
 
     // -- EVENTS
 
@@ -72,8 +73,23 @@ public sealed class PlayerController : MonoBehaviour
         _closestInteractableObject.SetInteractable( true );
     }
 
+    public void LockWeaponPivot()
+    {
+        _lockWeaponPivot = true;
+    }
+
+    public void UnlockWeaponPivot()
+    {
+        _lockWeaponPivot = false;
+    }
+
     private void UpdateWeaponPivot()
     {
+        if( _lockWeaponPivot )
+        {
+            return;
+        }
+
         Vector3 weapon_pivot_rotation = Vector3.zero;
         Vector3 weapon_pivot_right_direction = Vector3.right;
         Vector3 weapon_pivot_forward_direction = Vector3.forward;

@@ -1,13 +1,37 @@
 using UnityEngine;
 
+public enum EWeaponAnimation
+{
+    SwordSlash,
+}
+
 public sealed class PlayerRenderer : MonoBehaviour
 {
+    // -- CONSTS
+
+    private static readonly int SwordSlash = Animator.StringToHash( "SwordSlash" );
+
     // -- FIELDS
 
     [SerializeField] private SpriteRenderer _playerRenderer = null;
     [SerializeField] private SpriteRenderer _weaponRenderer = null;
 
+    private Animator _playerAnimator = null;
+
     // -- METHODS
+
+    public void PlayWeaponAnimation( EWeaponAnimation weapon_animation )
+    {
+        switch( weapon_animation )
+        {
+            case EWeaponAnimation.SwordSlash:
+                _playerAnimator.SetTrigger( SwordSlash );
+                break;
+
+            default:
+                throw new System.NotImplementedException();
+        }
+    }
 
     private void UpdateFacingDirection()
     {
@@ -25,6 +49,11 @@ public sealed class PlayerRenderer : MonoBehaviour
     }
 
     // -- UNITY
+
+    private void Awake()
+    {
+        _playerAnimator = GetComponent<Animator>();
+    }
 
     private void Start()
     {

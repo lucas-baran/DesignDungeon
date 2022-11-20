@@ -9,6 +9,7 @@ public sealed class WeaponData : ScriptableObject
     [SerializeField, Multiline] private string _description = null;
     [SerializeField] private Sprite _sprite = null;
     [SerializeField] private AbilityData _effectiveAbility = null;
+    [SerializeField] private EWeaponAnimation _animation = EWeaponAnimation.SwordSlash;
 
     // -- PROPERTIES
 
@@ -16,4 +17,5 @@ public sealed class WeaponData : ScriptableObject
     public string Description => _description;
     public Sprite Sprite => _sprite;
     public AbilityData EffectiveAbility => _effectiveAbility;
+    public EWeaponAnimation Animation => _animation;
 }

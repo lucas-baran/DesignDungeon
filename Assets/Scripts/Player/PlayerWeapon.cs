@@ -20,11 +20,22 @@ public sealed class PlayerWeapon : MonoBehaviour
                 return;
             }
 
+            if( _selectedWeapon != null )
+            {
+                _selectedWeapon.EffectiveAbility.OnAbilityActivated -= WeaponAbility_OnAbilityActivated;
+            }
+
             _selectedWeapon = value;
+            _selectedWeapon.EffectiveAbility.OnAbilityActivated += WeaponAbility_OnAbilityActivated;
             Player.Instance.Abilities[ EAbilityCategory.Weapon ] = _selectedWeapon.EffectiveAbility;
 
             OnWeaponChanged?.Invoke( _selectedWeapon );
         }
+    }
+
+    private void WeaponAbility_OnAbilityActivated( AbilityData ability_data )
+    {
+        Player.Instance.Renderer.PlayWeaponAnimation( _selectedWeapon.Animation );
     }
 
     // -- EVENTS
@@ -37,10 +48,16 @@ public sealed class PlayerWeapon : MonoBehaviour
     private void Awake()
     {
         _selectedWeapon = _startingWeaponData;
+        _selectedWeapon.EffectiveAbility.OnAbilityActivated += WeaponAbility_OnAbilityActivated;
     }
 
     private void Start()
     {
         Player.Instance.Abilities[ EAbilityCategory.Weapon ] = _selectedWeapon.EffectiveAbility;
+    }
+
+    private void OnDestroy()
+    {
+        _selectedWeapon.EffectiveAbility.OnAbilityActivated -= WeaponAbility_OnAbilityActivated;
     }
 }

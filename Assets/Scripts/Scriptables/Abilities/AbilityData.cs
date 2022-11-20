@@ -28,6 +28,11 @@ public abstract class AbilityData : ScriptableObject
     public float ActiveTime => _activeTime;
     public Sprite Sprite => _sprite;
 
+    // -- EVENTS
+
+    public delegate void AbilityActivateHandler( AbilityData ability_data );
+    public event AbilityActivateHandler OnAbilityActivated;
+    
     // -- METHODS
 
     public virtual bool CanActivate()
@@ -35,7 +40,14 @@ public abstract class AbilityData : ScriptableObject
         return true;
     }
 
-    public abstract void Activate();
+    public void Activate()
+    {
+        Execute();
+
+        OnAbilityActivated?.Invoke( this );
+    }
+
+    protected abstract void Execute();
 
     public virtual void End()
     {

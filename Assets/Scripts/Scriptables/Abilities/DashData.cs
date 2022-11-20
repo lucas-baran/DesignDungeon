@@ -15,7 +15,7 @@ public sealed class DashData : AbilityData
         return Player.Instance.Input.AxisInput != Vector2.zero;
     }
 
-    public override void Activate()
+    protected override void Execute()
     {
         Player.Instance.Input.Lock();
 

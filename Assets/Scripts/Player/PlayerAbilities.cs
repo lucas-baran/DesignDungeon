@@ -14,7 +14,7 @@ public class AbilityUsage
     public AbilityData AbilityData { get; set; }
     public bool IsActive => _isActive;
     public float AbilityCooldown01 => Mathf.Max( 0f, _cooldownTimer ) / AbilityData.Cooldown;
-    public bool CanActivate => !IsActive && !Player.Instance.Input.InputLocked && _cooldownTimer <= 0f && AbilityData.CanActivate();
+    private bool CanActivate => !IsActive && !Player.Instance.Input.InputLocked && _cooldownTimer <= 0f && AbilityData.CanActivate();
 
     // -- CONSTRUCTORS
 
@@ -27,6 +27,11 @@ public class AbilityUsage
 
     public void Activate()
     {
+        if( !CanActivate )
+        {
+            return;
+        }
+
         _activeTimer = AbilityData.ActiveTime;
         _isActive = true;
 
@@ -96,11 +101,7 @@ public sealed class PlayerAbilities : MonoBehaviour
     private void PlayerInput_OnAbilityDown( EAbilityCategory ability_category )
     {
         var ability_usage = _abilityUsageMap[ ability_category ];
-
-        if( ability_usage.CanActivate )
-        {
-            ability_usage.Activate();
-        }
+        ability_usage.Activate();
     }
 
     // -- UNITY

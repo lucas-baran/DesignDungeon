@@ -9,7 +9,7 @@ public sealed class HealData : AbilityData
 
     // -- METHODS
 
-    public override void Activate()
+    protected override void Execute()
     {
         Player.Instance.Life.ChangeHealth( _heal );
     }

@@ -9,7 +9,7 @@ public sealed class SwordAttackData : AbilityData
 
     // -- METHODS
 
-    public override void Activate()
+    protected override void Execute()
     {
         Debug.Log( "Sword attack!" );
     }
