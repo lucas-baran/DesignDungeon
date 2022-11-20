@@ -5,13 +5,15 @@ public sealed class EnemyLife : MonoBehaviour
     // -- CONSTS
 
     private const float MinimumHealth = 0.1f;
-    
+
     // -- FIELDS
 
     [SerializeField] private float _maxHealth = 10f;
     [SerializeField] private float _startingHealth = 10f;
 
     private float _currentHealth = 0f;
+    private bool _died = false;
+    private int _lastHealthUpdateFrame = -1;
 
     // -- PROPERTIES
 
@@ -26,10 +28,18 @@ public sealed class EnemyLife : MonoBehaviour
 
     public void ChangeHealth( float health_change )
     {
+        if( _died || health_change == 0f || _lastHealthUpdateFrame == Time.frameCount )
+        {
+            return;
+        }
+
+        _lastHealthUpdateFrame = Time.frameCount;
+
         _currentHealth = Mathf.Clamp( _currentHealth + health_change, 0f, _maxHealth );
 
         if( _currentHealth == 0f )
         {
+            _died = true;
             OnDied?.Invoke( this );
         }
     }

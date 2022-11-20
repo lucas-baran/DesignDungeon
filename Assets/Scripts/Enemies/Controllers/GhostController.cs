@@ -39,7 +39,7 @@ public sealed class GhostController : EnemyController
         Vector3 teleport_direction = (Player.Instance.CurrentRoom.RoomCenter - Player.Instance.Transform.position).normalized;
         Vector3 position_from_player = Random.Range( _teleportDistance - _teleportDistanceVariance, _teleportDistance + _teleportDistanceVariance ) * teleport_direction;
 
-        transform.position = Player.Instance.Transform.position + position_from_player;
+        Teleport( Player.Instance.Transform.position + position_from_player );
     }
 
     // -- UNITY

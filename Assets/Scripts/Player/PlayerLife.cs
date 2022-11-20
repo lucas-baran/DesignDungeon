@@ -13,6 +13,7 @@ public sealed class PlayerLife : MonoBehaviour
 
     private int _currentHealth = 0;
     private bool _invincible = false;
+    private int _lastHealthUpdateFrame = -1;
     private bool _died = false;
 
     // -- PROPERTIES
@@ -42,7 +43,7 @@ public sealed class PlayerLife : MonoBehaviour
 
     public delegate void PlayerHealthChangedHandler( PlayerLife entity_life, int health_change );
     public event PlayerHealthChangedHandler OnHealthChanged = null;
-    
+
     public delegate void PlayerMaxHealthChangedHandler( PlayerLife entity_life, int max_health_change );
     public event PlayerMaxHealthChangedHandler OnMaxHealthChanged = null;
 
@@ -53,11 +54,12 @@ public sealed class PlayerLife : MonoBehaviour
 
     public void ChangeHealth( int health_change )
     {
-        if( Invincible || _died || health_change == 0 )
+        if( Invincible || _died || health_change == 0 || _lastHealthUpdateFrame == Time.frameCount )
         {
             return;
         }
 
+        _lastHealthUpdateFrame = Time.frameCount;
         _currentHealth = Mathf.Clamp( _currentHealth + health_change, 0, _maxHealth );
 
         OnHealthChanged?.Invoke( this, health_change );
@@ -77,7 +79,7 @@ public sealed class PlayerLife : MonoBehaviour
             return;
         }
 
-        _maxHealth = Mathf.Max( 0, _maxHealth + max_health_change);
+        _maxHealth = Mathf.Max( 0, _maxHealth + max_health_change );
 
         if( _maxHealth == 0 )
         {
