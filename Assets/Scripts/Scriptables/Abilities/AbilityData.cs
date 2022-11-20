@@ -37,7 +37,7 @@ public abstract class AbilityData : ScriptableObject
         {
             if( _effector == null )
             {
-                _effector = Instantiate( _effectorPrefab, Player.Instance.Transform );
+                _effector = Instantiate( _effectorPrefab, Player.Instance.Controller.WeaponPivot );
             }
 
             return _effector;

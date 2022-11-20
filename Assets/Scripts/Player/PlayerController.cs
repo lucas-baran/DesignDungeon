@@ -13,6 +13,10 @@ public sealed class PlayerController : MonoBehaviour
     private IInteractableObject _closestInteractableObject = null;
     private bool _lockWeaponPivot = false;
 
+    // -- PROPERTIES
+
+    public Transform WeaponPivot => _weaponPivot;
+
     // -- EVENTS
 
     public delegate void CanInteractStateChangedHandler( bool can_interact );
