@@ -142,8 +142,6 @@ public sealed class GameManager : MonoBehaviour
             }
         }
 
-        Player.Instance.Camera.transform.position = SpawnRoom.Room.GetCameraPosition();
-        Player.Instance.Teleport( SpawnRoom.Room.SpawnPosition );
-        SpawnRoom.Room.LoadNeighbourRooms();
+        SpawnRoom.Room.TeleportPlayer();
     }
 }

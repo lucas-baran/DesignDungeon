@@ -6,6 +6,8 @@ public sealed class Player : MonoBehaviour
 
     public static Player Instance { get; private set; }
 
+    public Room CurrentRoom { get; set; }
+
     public Transform Transform { get; private set; }
     public Camera Camera { get; private set; }
     public PlayerInput Input { get; private set; }

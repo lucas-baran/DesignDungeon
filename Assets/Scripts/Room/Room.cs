@@ -12,6 +12,7 @@ public sealed class Room : MonoBehaviour
     // -- PROPERTIES
 
     public Vector3 SpawnPosition => _spawnPoint.position;
+    public Vector3 RoomCenter => transform.position;
 
     // -- METHODS
 
@@ -25,6 +26,14 @@ public sealed class Room : MonoBehaviour
         );
     }
 
+    public void TeleportPlayer()
+    {
+        Player.Instance.Camera.transform.position = GetCameraPosition();
+        Player.Instance.Teleport( SpawnPosition );
+        LoadNeighbourRooms();
+        Player.Instance.CurrentRoom = this;
+    }
+
     private void EnterDoor( RoomDoor door )
     {
         Player.Instance.Camera.transform.position = door.DoorData.LinkedRoomData.Room.GetCameraPosition();
@@ -33,6 +42,7 @@ public sealed class Room : MonoBehaviour
         LoadNeighbourRooms();
 
         Player.Instance.Input.Unlock();
+        Player.Instance.CurrentRoom = this;
     }
 
     private IEnumerator EnterDoorRoutine( RoomDoor door )
