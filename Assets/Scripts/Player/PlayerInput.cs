@@ -22,6 +22,7 @@ public sealed class PlayerInput : MonoBehaviour
     public Vector2 MousePosition { get; private set; }
     public Vector2 MouseDirectionFromPlayer { get; private set; }
     public Vector2 AxisInput { get; private set; }
+    public Vector2 LastNotNullAxisInput { get; private set; } = Vector2.up;
     public bool InputLocked => _lockCount > 0;
 
     // -- EVENTS
@@ -93,6 +94,11 @@ public sealed class PlayerInput : MonoBehaviour
             Input.GetAxisRaw( HorizontalAxisName ),
             Input.GetAxisRaw( VerticalAxisName )
         ).normalized;
+
+        if( AxisInput != Vector2.zero )
+        {
+            LastNotNullAxisInput = AxisInput;
+        }
 
         if( Input.GetButtonDown( PickObjectName ) )
         {

@@ -2,13 +2,14 @@ public enum EDashDirectionSetting
 {
     Mouse,
     Movement,
+    LastNotNullMovement,
 }
 
 public sealed class GameSettings
 {
     // -- FIELDS
 
-    private EDashDirectionSetting _dashDirection = EDashDirectionSetting.Movement;
+    private EDashDirectionSetting _dashDirection = EDashDirectionSetting.LastNotNullMovement;
 
     // -- PROPERTIES
 

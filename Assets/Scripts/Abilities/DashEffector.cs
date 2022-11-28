@@ -2,11 +2,6 @@ using UnityEngine;
 
 public sealed class DashEffector : AbilityEffector
 {
-    public override bool CanActivateEffect( AbilityData ability_data )
-    {
-        return Player.Instance.Input.AxisInput != Vector2.zero;
-    }
-
     public override void ActivateEffect( AbilityData ability_data )
     {
         DashData dash_data = (DashData)ability_data;
@@ -22,6 +17,7 @@ public sealed class DashEffector : AbilityEffector
         {
             EDashDirectionSetting.Mouse => Player.Instance.Input.MouseDirectionFromPlayer,
             EDashDirectionSetting.Movement => Player.Instance.Input.AxisInput,
+            EDashDirectionSetting.LastNotNullMovement => Player.Instance.Input.LastNotNullAxisInput,
             _ => throw new System.NotImplementedException(),
         };
 
