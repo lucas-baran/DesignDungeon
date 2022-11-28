@@ -5,6 +5,13 @@ public enum EKeyActionType
 {
     MoveUp,
     MoveDown,
+    MoveLeft,
+    MoveRight,
+    WeaponAbility,
+    MovementAbility,
+    SpecialAbility,
+    PotionAbility,
+    PickObject,
 }
 
 public class InputSystem : MonoBehaviour
@@ -21,6 +28,10 @@ public class InputSystem : MonoBehaviour
 
     public delegate void ActionKeyChangedHandler( EKeyActionType key_action_type, KeyCode key_code );
     public event ActionKeyChangedHandler OnActionKeyChanged;
+    
+    // -- PROPERTIES
+
+    public static InputSystem Instance { get; private set; }
 
     // -- METHODS
 
@@ -39,6 +50,16 @@ public class InputSystem : MonoBehaviour
 
     private void Awake()
     {
+        if( Instance == null )
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy( this );
+            return;
+        }
+
         _validKeyCodes = (KeyCode[])System.Enum.GetValues( typeof( KeyCode ) );
     }
 

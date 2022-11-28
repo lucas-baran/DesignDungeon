@@ -164,8 +164,8 @@ AudioSource:
   m_GameObject: {fileID: 43078641}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7023817305561894819, guid: 119148de541723c4296b6608fd6c9f90, type: 2}
+  m_audioClip: {fileID: 8300000, guid: ca2546e0b9c986248a50297f5828a085, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -292,7 +292,7 @@ AudioSource:
   m_GameObject: {fileID: 51257984}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8771431223098315072, guid: 119148de541723c4296b6608fd6c9f90, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -420,7 +420,7 @@ AudioSource:
   m_GameObject: {fileID: 827334997}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4563716814669956239, guid: 119148de541723c4296b6608fd6c9f90, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -584,6 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381518889}
+  - component: {fileID: 1381518890}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -609,6 +610,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381518890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381518888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75207633c223e6345847437aacc3841d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musics_source: {fileID: 43078643}
+  voices_source: {fileID: 827334999}
+  effects_source: {fileID: 51257986}
+  mixer: {fileID: 24100000, guid: 119148de541723c4296b6608fd6c9f90, type: 2}
 --- !u!1 &1821817032
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ca99957a6f7db49869d0cfbc93992a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnRoom: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
-  EditorScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
+  EditorScenario: {fileID: 11400000, guid: f7821872a514e824290a2843ba953367, type: 2}
   DevelopmentBuildScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
   ReleaseBuildScenario: {fileID: 11400000, guid: 8a678bf3ac0babc4fb5c85513d8c1701, type: 2}
