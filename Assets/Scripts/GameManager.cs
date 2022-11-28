@@ -7,8 +7,6 @@ public sealed class GameManager : MonoBehaviour
 {
     // -- FIELDS
 
-    [SerializeField] private RoomData SpawnRoom = null;
-
     [Header( "Scenarios" )]
     [SerializeField] private Scenario EditorScenario = null;
     [SerializeField] private Scenario DevelopmentBuildScenario = null;
@@ -17,7 +15,7 @@ public sealed class GameManager : MonoBehaviour
     private GameSettings _gameSettings = new GameSettings();
 
     private bool _isPaused = false;
-    private List<int> _loadedAndLoadingScenes = new List<int>();
+    private HashSet<int> _loadedAndLoadingScenes = new HashSet<int>();
 
     // -- PROPERTIES
 
@@ -57,6 +55,81 @@ public sealed class GameManager : MonoBehaviour
 
     // -- METHODS
 
+    public void LoadScenario( Scenario scenario )
+    {
+        StartCoroutine( LoadScenarioRoutine( scenario ) );
+    }
+
+    private IEnumerator LoadScenarioRoutine( Scenario scenario )
+    {
+        if( _loadedAndLoadingScenes.Count > 0 )
+        {
+            yield return StartCoroutine( UnloadCurrentScenario() );
+        }
+
+        foreach( var scene_data in scenario.Scenes )
+        {
+            if( LoadScene( scene_data.BuildIndex, out AsyncOperation scenario_scene_load_operation ) )
+            {
+                while( !scenario_scene_load_operation.isDone )
+                {
+                    yield return null;
+                }
+            }
+        }
+
+        if( scenario.SpawnRoom.HasValue( out RoomData spawn_room_data ) )
+        {
+            if( LoadScene( spawn_room_data.SceneBuildIndex, out AsyncOperation spawn_room_scene_load_operation ) )
+            {
+                while( !spawn_room_scene_load_operation.isDone )
+                {
+                    yield return null;
+                }
+            }
+
+            spawn_room_data.Room.TeleportPlayer();
+        }
+    }
+
+    private IEnumerator UnloadCurrentScenario()
+    {
+        IsPaused = true;
+
+        List<AsyncOperation> scene_unload_operations = new List<AsyncOperation>();
+        var loaded_scenes = new HashSet<int>( _loadedAndLoadingScenes );
+
+        foreach( var scene_build_index in loaded_scenes )
+        {
+            if( UnloadScene( scene_build_index, out AsyncOperation scenario_scene_unload_operation ) )
+            {
+                scene_unload_operations.Add( scenario_scene_unload_operation );
+            }
+        }
+
+        bool all_unloaded;
+        do
+        {
+            all_unloaded = true;
+
+            for( int unload_operation_index = scene_unload_operations.Count - 1; unload_operation_index >= 0; unload_operation_index-- )
+            {
+                all_unloaded &= scene_unload_operations[ unload_operation_index ].isDone;
+
+                if( !all_unloaded )
+                {
+                    yield return null;
+
+                    break;
+                }
+
+                scene_unload_operations.RemoveAt( unload_operation_index );
+            }
+        } while( !all_unloaded );
+
+        IsPaused = false;
+    }
+
     public bool IsSceneLoadedOrLoading( int build_index )
     {
         return _loadedAndLoadingScenes.Contains( build_index );
@@ -92,6 +165,36 @@ public sealed class GameManager : MonoBehaviour
         return true;
     }
 
+    public bool UnloadScene( int build_index, out AsyncOperation scene_load_operation )
+    {
+        var scene = SceneManager.GetSceneByBuildIndex( build_index );
+
+        if( !_loadedAndLoadingScenes.Contains( build_index ) )
+        {
+            scene_load_operation = null;
+
+            return false;
+        }
+
+        if( !scene.isLoaded )
+        {
+            if( _loadedAndLoadingScenes.Contains( build_index ) )
+            {
+                _loadedAndLoadingScenes.Remove( build_index );
+            }
+
+            scene_load_operation = null;
+
+            return false;
+        }
+
+        _loadedAndLoadingScenes.Remove( build_index );
+
+        scene_load_operation = SceneManager.UnloadSceneAsync( build_index, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects );
+
+        return true;
+    }
+
     // -- UNITY
 
     private void Awake()
@@ -106,14 +209,9 @@ public sealed class GameManager : MonoBehaviour
 
             return;
         }
-
-        for( int scene_index = 0; scene_index < SceneManager.sceneCount; scene_index++ )
-        {
-            _loadedAndLoadingScenes.Add( SceneManager.GetSceneAt( scene_index ).buildIndex );
-        }
     }
 
-    private IEnumerator Start()
+    private void Start()
     {
 #if UNITY_EDITOR
         Scenario load_scenario = EditorScenario;
@@ -123,25 +221,6 @@ public sealed class GameManager : MonoBehaviour
         Scenario load_scenario = ReleaseBuildScenario;
 #endif
 
-        foreach( var scene_data in load_scenario.Scenes )
-        {
-            if( LoadScene( scene_data.BuildIndex, out AsyncOperation scenario_scene_load_operation ) )
-            {
-                while( !scenario_scene_load_operation.isDone )
-                {
-                    yield return null;
-                }
-            }
-        }
-
-        if( LoadScene( SpawnRoom.SceneBuildIndex, out AsyncOperation spawn_room_scene_load_operation ) )
-        {
-            while( !spawn_room_scene_load_operation.isDone )
-            {
-                yield return null;
-            }
-        }
-
-        SpawnRoom.Room.TeleportPlayer();
+        LoadScenario( load_scenario );
     }
 }

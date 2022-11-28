@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DebugScenario
   m_EditorClassIdentifier: 
   _scenes:
-  - _buildIndex: 0
   - _buildIndex: 1
   - _buildIndex: 2
   - _buildIndex: 3
+  _spawnRoom:
+    _Enabled: 1
+    _Value: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}

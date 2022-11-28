@@ -77,6 +77,11 @@ public abstract class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        if( GameManager.Instance.IsPaused )
+        {
+            return;
+        }
+
         Attack();
         UpdateMovementStimulus();
         Move();
