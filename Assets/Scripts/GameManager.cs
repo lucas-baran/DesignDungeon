@@ -16,6 +16,8 @@ public sealed class GameManager : MonoBehaviour
 
     private bool _isPaused = false;
     private HashSet<int> _loadedAndLoadingScenes = new HashSet<int>();
+    private Vector3 _nextRoomPosition = Vector3.zero;
+    private Stack<Vector3> _freeRoomPositionStack = new Stack<Vector3>();
 
     // -- PROPERTIES
 
@@ -193,6 +195,24 @@ public sealed class GameManager : MonoBehaviour
         scene_load_operation = SceneManager.UnloadSceneAsync( build_index, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects );
 
         return true;
+    }
+
+    public Vector3 UseNextRoomPosition()
+    {
+        if( _freeRoomPositionStack.Count > 0 )
+        {
+            return _freeRoomPositionStack.Pop();
+        }
+
+        Vector3 room_position = _nextRoomPosition;
+        _nextRoomPosition = room_position + (2f * Player.Instance.Camera.orthographicSize + 5f) * Vector3.up;
+
+        return room_position;
+    }
+
+    public void SetRoomPositionUnused( Vector3 room_position )
+    {
+        _freeRoomPositionStack.Push( room_position );
     }
 
     // -- UNITY

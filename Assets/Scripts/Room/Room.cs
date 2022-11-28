@@ -84,6 +84,8 @@ public sealed class Room : MonoBehaviour
 
     private void Start()
     {
+        transform.position = GameManager.Instance.UseNextRoomPosition();
+
         foreach( var door_data in _roomData.Doors )
         {
             door_data.Door.OnDoorEnter += DoorData_OnDoorEnter;
@@ -92,6 +94,8 @@ public sealed class Room : MonoBehaviour
 
     private void OnDestroy()
     {
+        GameManager.Instance.SetRoomPositionUnused( transform.position );
+
         foreach( var door_data in _roomData.Doors )
         {
             door_data.Door.OnDoorEnter -= DoorData_OnDoorEnter;
