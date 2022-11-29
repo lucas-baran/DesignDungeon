@@ -5,57 +5,56 @@ using UnityEngine;
 public class MainMenuManager : MonoBehaviour
 {
     public GameObject MainMenu;
-    public GameObject SettingsMenu;
-    public GameObject GameplaySettingsMenu;
-    public GameObject SoundSettingsMenu;
+    public SettingsMenuManager SettingsMenu;
     public GameObject CreditsMenu;
+
+    [SerializeField] private Scenario _playScenario;
 
     public void Awake()
     {
-        BackButton();
+        CreditBack();
+    }
+
+    private void OnEnable()
+    {
+        SettingsMenu.OnBackButton += SettingsMenu_BackButton;
+    }
+
+    public void PlayButton()
+    {
+        GameManager.Instance.LoadScenario( _playScenario );
+    }
+
+    public void CreditBack()
+    {
+        MainMenu.SetActive( true );
+        SettingsMenu.gameObject.SetActive( false );
+        CreditsMenu.SetActive( false );
+    }
+
+    public void SettingsMenu_BackButton()
+    {
+        MainMenu.SetActive( true );
+        SettingsMenu.gameObject.SetActive( false );
     }
 
     public void QuitButton()
     {
         Application.Quit();
     }
-
-    public void SoundButton()
-    {
-        GameplaySettingsMenu.SetActive( false );
-        SoundSettingsMenu.SetActive( true );
-    }
-    public void GameplayButton()
-    {
-        GameplaySettingsMenu.SetActive( true );
-        SoundSettingsMenu.SetActive( false );
-    }
+   
 
     public void SettingsButton()
     {
         MainMenu.SetActive( false );
-        SettingsMenu.SetActive( true );
-        GameplaySettingsMenu.SetActive( true );
-        SoundSettingsMenu.SetActive( false );
-    }
-
-    public void BackButton()
-    {
-        MainMenu.SetActive( true );
-        SettingsMenu.SetActive( false );
-        GameplaySettingsMenu.SetActive( false );
-        SoundSettingsMenu.SetActive( false );
-        CreditsMenu.SetActive( false );
+        SettingsMenu.gameObject.SetActive( true );
     }
 
     public void CreditButton()
     {
         CreditsMenu.SetActive( true );
         MainMenu.SetActive( false );
-        SettingsMenu.SetActive( false );
-        GameplaySettingsMenu.SetActive( false );
-        SoundSettingsMenu.SetActive( false );
-
+        SettingsMenu.gameObject.SetActive( false );
     }
 
     public void OpenLink(string link )
