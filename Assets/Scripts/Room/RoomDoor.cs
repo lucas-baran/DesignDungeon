@@ -22,7 +22,7 @@ public sealed class RoomDoor : MonoBehaviour
 
     private void Awake()
     {
-        Assert.IsFalse( _doorData == null, $"The door {name} in scene {gameObject.scene} doesn't have DoorData!" );
+        Assert.IsFalse( _doorData == null, $"The door {name} in scene {gameObject.scene.name} doesn't have DoorData!" );
 
         _doorData.Door = this;
     }

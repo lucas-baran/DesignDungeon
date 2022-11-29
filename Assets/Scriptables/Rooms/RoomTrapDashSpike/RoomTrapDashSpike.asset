@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf7f48f1b14c9d489ef0a1688a6b18a, type: 3}
+  m_Name: RoomTrapDashSpike
+  m_EditorClassIdentifier: 
+  _scene:
+    _buildIndex: 9
+  _doors:
+  - {fileID: 11400000, guid: 41406edd3126e094f872621ef0c46182, type: 2}
+  - {fileID: 11400000, guid: 7f7998bef73278e4fad6b43a629f39f9, type: 2}
+  - {fileID: 11400000, guid: 5ec9e338bb2ba164e827b68db1c2ed39, type: 2}

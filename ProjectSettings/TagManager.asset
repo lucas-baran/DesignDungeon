@@ -17,8 +17,8 @@ TagManager:
   - UI
   - InteractableObject
   - Enemy
-  - 
-  - 
+  - DamageObject
+  - Walls
   - 
   - 
   - 

@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: b69d9fa83928ae146a352bbc67b4cf71
+  - enabled: 1
+    path: Assets/Scenes/Rooms/RoomTrap/RoomTrap.unity
+    guid: 1bd8d7f52032e7946a98f197f33cea61
+  - enabled: 1
+    path: Assets/Scenes/Rooms/RoomTrap/RoomTrapDashSpike.unity
+    guid: 0b8178001560d6f4fa38ce1b27794feb
   m_configObjects: {}
