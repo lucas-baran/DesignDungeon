@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f212416e042b6ad4bbefc15f93d7b0dc, type: 3}
   m_Name: Room2_WestDoor
   m_EditorClassIdentifier: 
-  _linkedRoomData: {fileID: 11400000, guid: 826e990f473763540a94acd3c55e4f43, type: 2}
-  _linkedDoorData: {fileID: 11400000, guid: 41406edd3126e094f872621ef0c46182, type: 2}
+  _linkedRoomData: {fileID: 11400000, guid: 29e417da3e5a9b7418fdea6360bc97c2, type: 2}
+  _linkedDoorData: {fileID: 11400000, guid: cc98f36ba8ba53b488fbcdbd80af44af, type: 2}
