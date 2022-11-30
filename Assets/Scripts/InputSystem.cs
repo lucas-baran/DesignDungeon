@@ -12,6 +12,7 @@ public enum EKeyActionType
     SpecialAbility,
     PotionAbility,
     PickObject,
+    SkipDialogue,
 }
 
 public class InputSystem : MonoBehaviour
@@ -22,12 +23,28 @@ public class InputSystem : MonoBehaviour
 
     private bool _listenForKey = false;
     private EKeyActionType _listenedActionType = EKeyActionType.MoveUp;
-    private Dictionary<EKeyActionType, KeyCode> _keyActionMap = null;
+    private Dictionary<EKeyActionType, KeyCode> _keyActionMap = new Dictionary<EKeyActionType, KeyCode>()
+    {
+        { EKeyActionType.MoveUp, KeyCode.W },
+        { EKeyActionType.MoveDown, KeyCode.S },
+        { EKeyActionType.MoveLeft, KeyCode.A },
+        { EKeyActionType.MoveRight, KeyCode.D },
+        { EKeyActionType.WeaponAbility, KeyCode.Mouse0 },
+        { EKeyActionType.MovementAbility, KeyCode.Mouse1 },
+        { EKeyActionType.SpecialAbility, KeyCode.Space },
+        { EKeyActionType.PotionAbility, KeyCode.Q },
+        { EKeyActionType.PickObject, KeyCode.E },
+        { EKeyActionType.SkipDialogue, KeyCode.F },
+    }
+    ;
 
     // -- EVENTS
 
     public delegate void ActionKeyChangedHandler( EKeyActionType key_action_type, KeyCode key_code );
     public event ActionKeyChangedHandler OnActionKeyChanged;
+   
+    public delegate void CancelKeyChangedHandler(  );
+    public event CancelKeyChangedHandler OnCancelKeyChanged;
     
     // -- PROPERTIES
 
@@ -44,6 +61,12 @@ public class InputSystem : MonoBehaviour
     private void CancelListenedActionKey()
     {
         _listenForKey = false;
+        OnCancelKeyChanged?.Invoke();
+    }
+
+    public KeyCode GetKey(EKeyActionType key_action)
+    {
+        return _keyActionMap[ key_action ];
     }
 
     // -- UPDATE
@@ -73,7 +96,6 @@ public class InputSystem : MonoBehaviour
         if( Input.GetKey( KeyCode.Escape ) )
         {
             CancelListenedActionKey();
-
             return;
         }
 
@@ -84,7 +106,7 @@ public class InputSystem : MonoBehaviour
                 _keyActionMap[ _listenedActionType ] = key_code;
                 _listenForKey = false;
 
-                OnActionKeyChanged?.Invoke( _listenedActionType, KeyCode.Return );
+                OnActionKeyChanged?.Invoke( _listenedActionType, key_code );
             }
         }
     }

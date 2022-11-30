@@ -2,16 +2,7 @@ using UnityEngine;
 
 public sealed class PlayerInput : MonoBehaviour
 {
-    // -- CONSTS
-
-    private const string HorizontalAxisName = "Horizontal";
-    private const string VerticalAxisName = "Vertical";
-    private const string NextDialogueName = "NextDialogue";
-    private const string PerformWeaponAbilityName = "PerformWeaponAbility";
-    private const string PerformMovementAbilityName = "PerformMovementAbility";
-    private const string PerformSpecialAbilityName = "PerformSpecialAbility";
-    private const string PerformPotionAbilityName = "PerformPotionAbility";
-    private const string PickObjectName = "PickObject";
+    // -- CONSTS NON
 
     // -- FIELDS
 
@@ -76,7 +67,7 @@ public sealed class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if( Input.GetButtonDown( NextDialogueName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey(EKeyActionType.SkipDialogue ) ) )
         {
             OnNextDialogueDown?.Invoke();
         }
@@ -89,10 +80,14 @@ public sealed class PlayerInput : MonoBehaviour
         MousePosition = Player.Instance.Camera.ScreenToWorldPoint( Input.mousePosition );
         MouseDirectionFromPlayer = (Player.Instance.Input.MousePosition - Player.Instance.Transform.position.ToVector2()).normalized;
 
+        int move_left = Input.GetKey( InputSystem.Instance.GetKey( EKeyActionType.MoveLeft ) ) ? -1 : 0;
+        int move_right = Input.GetKey( InputSystem.Instance.GetKey( EKeyActionType.MoveRight ) ) ? 1 : 0;
+        int move_up = Input.GetKey( InputSystem.Instance.GetKey( EKeyActionType.MoveUp ) ) ? 1 : 0;
+        int move_down = Input.GetKey( InputSystem.Instance.GetKey( EKeyActionType.MoveDown ) ) ? -1 : 0;
         AxisInput = new Vector2
         (
-            Input.GetAxisRaw( HorizontalAxisName ),
-            Input.GetAxisRaw( VerticalAxisName )
+            move_right + move_left,
+            move_up + move_down
         ).normalized;
 
         if( AxisInput != Vector2.zero )
@@ -100,27 +95,27 @@ public sealed class PlayerInput : MonoBehaviour
             LastNotNullAxisInput = AxisInput;
         }
 
-        if( Input.GetButtonDown( PickObjectName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.PickObject ) ) )
         {
             OnPickObjectDown?.Invoke();
         }
 
-        if( Input.GetButtonDown( PerformWeaponAbilityName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.WeaponAbility ) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Weapon );
         }
 
-        if( Input.GetButtonDown( PerformMovementAbilityName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.MovementAbility ) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Movement );
         }
 
-        if( Input.GetButtonDown( PerformSpecialAbilityName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.SpecialAbility) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Special );
         }
 
-        if( Input.GetButtonDown( PerformPotionAbilityName ) )
+        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.PotionAbility ) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Potion );
         }
