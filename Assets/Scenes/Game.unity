@@ -670,6 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ca99957a6f7db49869d0cfbc93992a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EditorScenario: {fileID: 11400000, guid: f7821872a514e824290a2843ba953367, type: 2}
-  DevelopmentBuildScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
-  ReleaseBuildScenario: {fileID: 11400000, guid: 8a678bf3ac0babc4fb5c85513d8c1701, type: 2}
+  EditorScenario: {fileID: 11400000, guid: 81789eacba66aa14eae41bdc8517ac2e, type: 2}
+  DevelopmentBuildScenario: {fileID: 11400000, guid: 81789eacba66aa14eae41bdc8517ac2e, type: 2}
+  ReleaseBuildScenario: {fileID: 11400000, guid: f7821872a514e824290a2843ba953367, type: 2}
