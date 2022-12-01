@@ -34,7 +34,7 @@ public sealed class RoomDoor : MonoBehaviour
             Player.Instance.Input.Lock();
             Player.Instance.Controller.ResetVelocity();
 
-            OnDoorEnter?.Invoke( this );
+            _doorData.LinkedDoorData.Door.OnDoorEnter?.Invoke( this );
         }
     }
 }
