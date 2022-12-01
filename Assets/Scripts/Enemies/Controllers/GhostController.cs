@@ -37,6 +37,7 @@ public sealed class GhostController : EnemyController
     private void TeleportAfterAttack()
     {
         Vector3 teleport_direction = (Player.Instance.CurrentRoom.RoomCenter - Player.Instance.Transform.position).normalized;
+        teleport_direction = teleport_direction == Vector3.zero ? Vector3.right : teleport_direction;
         Vector3 position_from_player = Random.Range( _teleportDistance - _teleportDistanceVariance, _teleportDistance + _teleportDistanceVariance ) * teleport_direction;
 
         Teleport( Player.Instance.Transform.position + position_from_player );
