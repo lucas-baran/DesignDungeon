@@ -604,6 +604,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8518929516757617056, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: _keyActionButtons.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
 --- !u!1 &483663073

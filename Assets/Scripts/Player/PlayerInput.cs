@@ -110,10 +110,10 @@ public sealed class PlayerInput : MonoBehaviour
             OnAbilityDown?.Invoke( EAbilityCategory.Movement );
         }
 
-        if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.SpecialAbility) ) )
+        /*if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.SpecialAbility) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Special );
-        }
+        }*/
 
         if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.PotionAbility ) ) )
         {
