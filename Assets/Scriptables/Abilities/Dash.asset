@@ -17,7 +17,7 @@ MonoBehaviour:
   _category: 2
   _activeTime: 0.2
   _cooldown: 2
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: ee337f590c0685d46be77cf5f606d557, type: 3}
   _effectorPrefab: {fileID: 4161762492604685275, guid: 2a62aea11402f3743b3e77348b40ee7d, type: 3}
   _dashVelocity: 20
   _invincibility: 1

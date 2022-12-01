@@ -17,5 +17,6 @@ MonoBehaviour:
   _category: 3
   _activeTime: 0
   _cooldown: 60
-  _sprite: {fileID: 0}
+  _sprite: {fileID: -1860172695, guid: e336bb7febb33e94f9d3ebe5570160fa, type: 3}
+  _effectorPrefab: {fileID: 0}
   _heal: 1
