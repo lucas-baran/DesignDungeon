@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RoomK3_SouthDoor
   m_EditorClassIdentifier: 
   _linkedRoomData: {fileID: 11400000, guid: 3cd86ff80eaba984aa40594352182c34, type: 2}
-  _linkedDoorData: {fileID: 11400000, guid: 17072265b1312d841a522f667ea6b2b3, type: 2}
+  _linkedDoorData: {fileID: 11400000, guid: 9555cb7034173db41bdfa9ba66435e36, type: 2}
