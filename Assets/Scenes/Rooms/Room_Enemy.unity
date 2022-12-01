@@ -1726,6 +1726,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2122767031}
     m_Modifications:
+    - target: {fileID: 7173620607795703488, guid: 33bba0569043dcd4485770889f020485, type: 3}
+      propertyPath: _dialogueToDisplay
+      value: 
+      objectReference: {fileID: 11400000, guid: 5fac20224cdfcb64aa54212b564d1ddd, type: 2}
+    - target: {fileID: 7173620607795703489, guid: 33bba0569043dcd4485770889f020485, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7173620607795703490, guid: 33bba0569043dcd4485770889f020485, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2022,6 +2030,10 @@ PrefabInstance:
     - target: {fileID: 3248365424582739560, guid: 99da04fb1915db74ba1a96eda807a7eb, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248365424582739561, guid: 99da04fb1915db74ba1a96eda807a7eb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4044277859196963602, guid: 99da04fb1915db74ba1a96eda807a7eb, type: 3}
       propertyPath: _doorData
