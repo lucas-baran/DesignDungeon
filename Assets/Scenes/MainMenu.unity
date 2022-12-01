@@ -8619,7 +8619,7 @@ MonoBehaviour:
   MainMenu: {fileID: 1877397199}
   SettingsMenu: {fileID: 1388281560}
   CreditsMenu: {fileID: 1919793443}
-  _playScenario: {fileID: 11400000, guid: 690cccac30502f04e9cac594159979e5, type: 2}
+  _playScenario: {fileID: 11400000, guid: 8a678bf3ac0babc4fb5c85513d8c1701, type: 2}
 --- !u!1 &746546804
 GameObject:
   m_ObjectHideFlags: 0
@@ -18692,7 +18692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1877397200
 RectTransform:
   m_ObjectHideFlags: 0
