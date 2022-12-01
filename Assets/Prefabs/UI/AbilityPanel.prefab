@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ebb8a16ec8f5840a88dfbc990968b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _categoryOrder: 00000000010000000200000003000000
+  _categoryOrder: 000000000200000003000000
   _abilityDisplayPrefab: {fileID: 9165178586905539501, guid: 3ae3b17f9c0be034687d65fd7ee7e0c1, type: 3}
 --- !u!114 &3304326477855157839
 MonoBehaviour:

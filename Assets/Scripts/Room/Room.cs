@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class Room : MonoBehaviour
@@ -8,6 +9,9 @@ public sealed class Room : MonoBehaviour
     [SerializeField] private RoomData _roomData = null;
     [SerializeField] private Transform _cameraPoint = null;
     [SerializeField] private Transform _spawnPoint = null;
+    [SerializeField] private Transform _enemyParent = null;
+
+    private List<Enemy> _enemies;
 
     // -- PROPERTIES
 
@@ -15,6 +19,33 @@ public sealed class Room : MonoBehaviour
     public Vector3 RoomCenter => transform.position;
 
     // -- METHODS
+
+    public void LoadEnemies()
+    {
+        foreach( var enemy in _enemies )
+        {
+            if( enemy == null )
+            {
+                continue;
+            }
+
+            enemy.Enabled = true;
+            enemy.ResetEnemy();
+        }
+    }
+
+    private void UnloadEnemies()
+    {
+        foreach( var enemy in _enemies )
+        {
+            if( enemy == null )
+            {
+                continue;
+            }
+
+            enemy.Enabled = false;
+        }
+    }
 
     public Vector3 GetCameraPosition()
     {
@@ -30,7 +61,14 @@ public sealed class Room : MonoBehaviour
     {
         Player.Instance.Camera.transform.position = GetCameraPosition();
         Player.Instance.Teleport( SpawnPosition );
+
         LoadNeighbourRooms();
+        LoadEnemies();
+        if( Player.Instance.CurrentRoom != null )
+        {
+            Player.Instance.CurrentRoom.UnloadEnemies();
+        }
+
         Player.Instance.CurrentRoom = this;
     }
 
@@ -40,6 +78,11 @@ public sealed class Room : MonoBehaviour
         Player.Instance.Teleport( door.DoorData.LinkedDoorData.Door.EntrancePosition );
 
         LoadNeighbourRooms();
+        LoadEnemies();
+        if( Player.Instance.CurrentRoom != null )
+        {
+            Player.Instance.CurrentRoom.UnloadEnemies();
+        }
 
         Player.Instance.Input.Unlock();
         Player.Instance.CurrentRoom = this;
@@ -80,6 +123,7 @@ public sealed class Room : MonoBehaviour
     private void Awake()
     {
         _roomData.Room = this;
+        _enemies = new List<Enemy>( _enemyParent.GetComponentsInChildren<Enemy>() );
     }
 
     private void Start()

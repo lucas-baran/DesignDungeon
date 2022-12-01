@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   _name: Fireball
+  _description: 
   _category: 1
   _activeTime: 0
   _cooldown: 5
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 2065030348, guid: e7be3d0a8e7087c4dad041e8ccff84a3, type: 3}
+  _effectorPrefab: {fileID: 0}
   _damage: 20
