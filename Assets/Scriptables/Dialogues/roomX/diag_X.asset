@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8376e760242a1ee49b97f79bbebf02c6, type: 3}
+  m_Name: diag_X
+  m_EditorClassIdentifier: 
+  _dialogueEntryDataList:
+  - {fileID: 11400000, guid: c80638f574c7f8b4d937bd4a8290daf0, type: 2}
+  - {fileID: 11400000, guid: 7af0f511ed65c0547b230907527258c5, type: 2}
+  - {fileID: 11400000, guid: f97e1347a7d4e4045b5b6cc1cc22d8d6, type: 2}
+  - {fileID: 11400000, guid: 6f72833e8df46ed45ad0745fbe7da4a0, type: 2}
+  - {fileID: 11400000, guid: 31c2fe933881ef14081ac99f16a91ffa, type: 2}
+  _pauseGameDuringDialogue: 1

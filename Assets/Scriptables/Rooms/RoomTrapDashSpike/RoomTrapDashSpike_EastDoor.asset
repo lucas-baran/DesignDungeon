@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f212416e042b6ad4bbefc15f93d7b0dc, type: 3}
   m_Name: RoomTrapDashSpike_EastDoor
   m_EditorClassIdentifier: 
-  _linkedRoomData: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
-  _linkedDoorData: {fileID: 11400000, guid: b235746ab82dc6749ae0d65add81519a, type: 2}
+  _linkedRoomData: {fileID: 11400000, guid: 8d9128e082a6c044bb9837f6cfce1fba, type: 2}
+  _linkedDoorData: {fileID: 11400000, guid: 4d7f74851e63ba246854f2f461ef2286, type: 2}

@@ -9,6 +9,24 @@ public enum EVolumeType
     Voices,
 }
 
+public enum ESoundType
+{
+    DamageReceived,
+    Death,
+    Happy,
+    Attack,
+    AzzuroAngry,
+    AzzuroTalking,
+    Musicpool,
+}
+
+[System.Serializable]
+public struct SoundPoolType
+{
+    public ESoundType type;
+    public AudioClip[] pool;
+}
+
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
@@ -16,6 +34,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource voices_source;
     public AudioSource effects_source;
     public AudioMixer mixer;
+
+    public SoundPoolType[] Sounds;
 
     public void SetVolume( EVolumeType volume_type, float new_volume )
     {
@@ -58,6 +78,36 @@ public class AudioManager : MonoBehaviour
         return res;
     }
 
+    public void PlaySound( ESoundType type)
+    {
+        AudioClip sound_to_play = null;
+        foreach( var pool in Sounds )
+        {
+            if (pool.type == type )
+            {
+                sound_to_play = pool.pool[ Random.Range( 0, pool.pool.Length ) ];
+            }
+        }
+
+        switch( type )
+        {
+            case ESoundType.DamageReceived:
+            case ESoundType.Death:
+            case ESoundType.Happy:
+            case ESoundType.AzzuroAngry:
+            case ESoundType.AzzuroTalking:
+            case ESoundType.Attack:
+                voices_source.PlayOneShot( sound_to_play );
+                break;
+
+            case ESoundType.Musicpool:
+                musics_source.clip = sound_to_play;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Awake()
     {
         if( Instance == null )
@@ -70,5 +120,15 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+    }
+
+    private void Start()
+    {
+        SetVolume( EVolumeType.Master, 0.5f );
+        SetVolume( EVolumeType.Musics, 0.5f );
+        SetVolume( EVolumeType.Effects, 0.5f );
+        SetVolume( EVolumeType.Voices, 0.5f );
+
+        musics_source.loop = true;
     }
 }
