@@ -85,6 +85,7 @@ MonoBehaviour:
   _roomData: {fileID: 0}
   _cameraPoint: {fileID: 4044277860260336434}
   _spawnPoint: {fileID: 7216814789542748347}
+  _enemyParent: {fileID: 4866691555782547890}
 --- !u!1 &4858426936804470423
 GameObject:
   m_ObjectHideFlags: 0
