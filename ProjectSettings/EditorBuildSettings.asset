@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rooms/RoomTrap/RoomTrapDashSpike.unity
     guid: 0b8178001560d6f4fa38ce1b27794feb
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_1.unity
+    guid: b226ca96e897fa543b772801204f102c
   m_configObjects: {}
