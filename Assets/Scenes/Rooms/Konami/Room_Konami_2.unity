@@ -199,6 +199,10 @@ PrefabInstance:
       propertyPath: _dialogueToDisplay
       value: 
       objectReference: {fileID: 11400000, guid: cecaaa1010e027d4285105111f8b5373, type: 2}
+    - target: {fileID: 7173620607795703489, guid: 33bba0569043dcd4485770889f020485, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7173620607795703490, guid: 33bba0569043dcd4485770889f020485, type: 3}
       propertyPath: m_RootOrder
       value: 5
