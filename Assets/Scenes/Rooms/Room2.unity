@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 7173620607795703488, guid: 33bba0569043dcd4485770889f020485, type: 3}
       propertyPath: _dialogueToDisplay
       value: 
-      objectReference: {fileID: 11400000, guid: fc4542381184bea47af5a6fa716b049c, type: 2}
+      objectReference: {fileID: 11400000, guid: 41281eb3d02ff444db3609f869ec5269, type: 2}
     - target: {fileID: 7173620607795703489, guid: 33bba0569043dcd4485770889f020485, type: 3}
       propertyPath: m_Enabled
       value: 0
