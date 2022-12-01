@@ -5,5 +5,6 @@ public sealed class HealthPotionEffector : AbilityEffector
         HealData health_potion_data = (HealData)heal_data;
 
         Player.Instance.Life.ChangeHealth( health_potion_data.Heal );
+        AudioManager.Instance.PlaySound( ESoundType.Happy );
     }
 }
