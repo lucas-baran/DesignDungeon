@@ -62,12 +62,17 @@ public sealed class PlayerLife : MonoBehaviour
         _lastHealthUpdateFrame = Time.frameCount;
         _currentHealth = Mathf.Clamp( _currentHealth + health_change, 0, _maxHealth );
 
+        if( health_change < 0 )
+            AudioManager.Instance.PlaySound( ESoundType.DamageReceived );
+        else
+            AudioManager.Instance.PlaySound( ESoundType.Happy );
+
         OnHealthChanged?.Invoke( this, health_change );
 
         if( _currentHealth == 0 )
         {
             _died = true;
-
+            AudioManager.Instance.PlaySound( ESoundType.Death );
             OnDied?.Invoke( this );
         }
     }
@@ -85,10 +90,12 @@ public sealed class PlayerLife : MonoBehaviour
         {
             _died = true;
 
+            AudioManager.Instance.PlaySound( ESoundType.Death );
             OnDied?.Invoke( this );
         }
         else
         {
+            AudioManager.Instance.PlaySound( ESoundType.Happy );
             OnMaxHealthChanged?.Invoke( this, max_health_change );
         }
     }

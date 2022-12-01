@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf7f48f1b14c9d489ef0a1688a6b18a, type: 3}
+  m_Name: RoomK7
+  m_EditorClassIdentifier: 
+  _scene:
+    _buildIndex: 0
+  _doors:
+  - {fileID: 11400000, guid: e86ec3e505d333347a144090233bf3a4, type: 2}
+  - {fileID: 11400000, guid: 4e85f4e27848caa468e12ab182e4af52, type: 2}
+  - {fileID: 11400000, guid: 24bccf9dfd5273843968cea00c32a512, type: 2}
+  - {fileID: 11400000, guid: 0955ffe808b160c41b950c391b7fb892, type: 2}

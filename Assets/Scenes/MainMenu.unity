@@ -468,6 +468,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 627607722}
     m_Modifications:
+    - target: {fileID: 994574836952710967, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 994574836952710967, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 994574836952710967, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020364887823, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020364887823, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020364887823, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020434904326, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020434904326, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020434904326, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2361425020605890580, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
       propertyPath: m_Name
       value: SettingsMenu
@@ -556,6 +592,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2361425020653669505, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020653669505, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361425020653669505, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8665451c36441c748b7202d54097fdeb, type: 3}
 --- !u!1 &483663073
@@ -620,7 +668,12 @@ MonoBehaviour:
 
     -UI Designer
 
-    -Itch.io Page'
+    -Sound Designer
+
+    -Itch.io Page
+
+    -Re-Inventor
+    of the Input System'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a747b72cad6927644a597bc8367011ee, type: 2}
   m_sharedMaterial: {fileID: 7571599923664143492, guid: a747b72cad6927644a597bc8367011ee, type: 2}
@@ -683,7 +736,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 70.87891, y: 504.7783, z: 1445.8824, w: 0}
+  m_margin: {x: 70.87891, y: 504.7783, z: 1412.6019, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -13154,7 +13207,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: '-Game Designer
 
-    -Lead Developer'
+    -Lead Developer
+
+    -Mechanics Developer
+
+    -Developer
+    Developer
+
+    -Helped a lot on this -->'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a747b72cad6927644a597bc8367011ee, type: 2}
   m_sharedMaterial: {fileID: 7571599923664143492, guid: a747b72cad6927644a597bc8367011ee, type: 2}
@@ -13217,7 +13277,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 70.87891, y: 504.7783, z: 1398.5767, w: 0}
+  m_margin: {x: 70.87891, y: 504.7783, z: 1309.8285, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -18673,7 +18733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1919793444
 RectTransform:
   m_ObjectHideFlags: 0

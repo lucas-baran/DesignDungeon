@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f212416e042b6ad4bbefc15f93d7b0dc, type: 3}
   m_Name: Room2_EastDoor
   m_EditorClassIdentifier: 
-  _linkedRoomData: {fileID: 11400000, guid: 11d64ec53ce97d642ada460d7c6392b3, type: 2}
-  _linkedDoorData: {fileID: 11400000, guid: fce6bdc351e96124884cb2b6e86978c8, type: 2}
+  _linkedRoomData: {fileID: 11400000, guid: 5acea97997a27844aa3bc419bd336d8b, type: 2}
+  _linkedDoorData: {fileID: 11400000, guid: 78105f20bd93b704c970483b5c1c8c71, type: 2}

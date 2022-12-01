@@ -70,6 +70,7 @@ public sealed class PlayerInput : MonoBehaviour
         if( Input.GetKeyDown( InputSystem.Instance.GetKey(EKeyActionType.SkipDialogue ) ) )
         {
             OnNextDialogueDown?.Invoke();
+            AudioManager.Instance.PlaySound( ESoundType.AzzuroAngry );
         }
 
         if( InputLocked )
@@ -103,6 +104,7 @@ public sealed class PlayerInput : MonoBehaviour
         if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.WeaponAbility ) ) )
         {
             OnAbilityDown?.Invoke( EAbilityCategory.Weapon );
+            AudioManager.Instance.PlaySound( ESoundType.Attack );
         }
 
         if( Input.GetKeyDown( InputSystem.Instance.GetKey( EKeyActionType.MovementAbility ) ) )

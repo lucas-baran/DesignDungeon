@@ -36,6 +36,8 @@ public sealed class PlayerWeapon : MonoBehaviour
     private void WeaponAbility_OnAbilityActivated( AbilityData ability_data )
     {
         Player.Instance.Renderer.PlayWeaponAnimation( _selectedWeapon.Animation );
+        AudioManager.Instance.PlaySound( ESoundType.Attack );
+
     }
 
     // -- EVENTS
