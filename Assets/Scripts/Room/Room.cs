@@ -34,7 +34,7 @@ public sealed class Room : MonoBehaviour
         }
     }
 
-    public void UnloadEnemies()
+    private void UnloadEnemies()
     {
         foreach( var enemy in _enemies )
         {
@@ -61,7 +61,14 @@ public sealed class Room : MonoBehaviour
     {
         Player.Instance.Camera.transform.position = GetCameraPosition();
         Player.Instance.Teleport( SpawnPosition );
+
         LoadNeighbourRooms();
+        LoadEnemies();
+        if( Player.Instance.CurrentRoom != null )
+        {
+            Player.Instance.CurrentRoom.UnloadEnemies();
+        }
+
         Player.Instance.CurrentRoom = this;
     }
 
@@ -72,7 +79,10 @@ public sealed class Room : MonoBehaviour
 
         LoadNeighbourRooms();
         LoadEnemies();
-        Player.Instance.CurrentRoom.UnloadEnemies();
+        if( Player.Instance.CurrentRoom != null )
+        {
+            Player.Instance.CurrentRoom.UnloadEnemies();
+        }
 
         Player.Instance.Input.Unlock();
         Player.Instance.CurrentRoom = this;

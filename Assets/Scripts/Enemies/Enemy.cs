@@ -37,6 +37,8 @@ public sealed class Enemy : MonoBehaviour
         _startingPosition = Transform.localPosition;
         Life = GetComponent<EnemyLife>();
         Controller = GetComponent<EnemyController>();
+
+        Enabled = false;
     }
 
     private void Start()
