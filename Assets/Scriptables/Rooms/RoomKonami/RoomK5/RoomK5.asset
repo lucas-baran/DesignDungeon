@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoomK5
   m_EditorClassIdentifier: 
   _scene:
-    _buildIndex: 0
+    _buildIndex: 14
   _doors:
   - {fileID: 11400000, guid: 030b9126808df7a49adbdf8db399aa33, type: 2}
   - {fileID: 11400000, guid: 1928cdcde3e09434c84e876b424d2e1e, type: 2}

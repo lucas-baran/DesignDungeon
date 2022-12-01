@@ -37,5 +37,29 @@ EditorBuildSettings:
     guid: 0b8178001560d6f4fa38ce1b27794feb
   - enabled: 1
     path: Assets/Scenes/Rooms/Konami/Room_Konami_1.unity
-    guid: b226ca96e897fa543b772801204f102c
+    guid: 68e0b568b278f504395af35714c2f16f
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_2.unity
+    guid: 9ec108685e79d724eac94238ba4363b1
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_3.unity
+    guid: 767c5fc87cbca7c438f1b225ebccc1b3
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_4.unity
+    guid: 4ca015a88d141bd4d90c05326da87539
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_5.unity
+    guid: 79b97336d86de2040a07f5905106ea8b
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_6.unity
+    guid: ce2a6b8aafc0b4443b08755deb391053
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_7.unity
+    guid: 7c013d5126ea5c146a1cf4f582deb134
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Konami/Room_Konami_8.unity
+    guid: c23f937929e5302418ed2a7e085828cf
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Room_Enemy.unity
+    guid: aa71e89b599e1b340b4da6fad9f61e46
   m_configObjects: {}
